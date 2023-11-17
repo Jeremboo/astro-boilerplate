@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+. scripts/fix-lfs-hooks.sh
+. .husky/lfs-hooks/post-merge $@
+
+echo "Post-merge checks..."
+
+changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+
+if echo "$changed_files" | grep --quiet --extended-regexp 'package.json|package-lock.json'; then
+  npm install
+fi

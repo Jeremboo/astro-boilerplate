@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+. scripts/fix-lfs-hooks.sh
+
+echo "Pre-commit checks...."
+
+# Disable concurent to run build-types after ESLint in lint-staged
+npx lint-staged --concurrent false

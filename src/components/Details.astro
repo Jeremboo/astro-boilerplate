@@ -1,0 +1,14 @@
+---
+interface Props {
+	pageName: string;
+	nextPageName: string;
+	href: string;
+}
+
+const { pageName, nextPageName, href } = Astro.props;
+---
+
+<content class="text-center">
+	<h4 class="text-h4">This is the {pageName} page.</h2>
+	<p>Go to <a href={href}>{nextPageName}</a>.</p>
+</content>
