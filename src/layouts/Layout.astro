@@ -19,23 +19,8 @@ const customTransitionProps = classicAnimationTransition(0.5, 0.2);
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name='author' content={author} />
-		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<ViewTransitions />
-	</head>
-	<body class="text-base">
-		<h1 class="py-10 text-h1 text-center font-bold">Welcome to <span class="text-secondary">Astro Boilerplate</span></h1>
-		<main class="p-5" transition:animate={customTransitionProps} >
-			<slot />
-		</main>
-		<!-- <script transition:persist>
+    <Webgl client:load transition:persist />
+    <!-- <script transition:persist>
 			console.log('About');
 			document.addEventListener('astro:after-swap', () => {
 				console.log('About afterSwap');

@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 import compress from 'astro-compress';
 import favicons from 'astro-favicons';
+import glsl from 'vite-plugin-glsl';
 
 /*
  * * *******************
@@ -12,12 +13,31 @@ import favicons from 'astro-favicons';
  * * *******************
  */
 
+// NOTE 2023-11-25 jeremboo: Custom Vite.js Plugin to for reloading when any file in the webgl folder is updated
+function hotReloadWebgl() {
+  return {
+    name: 'hotReloadWebgl',
+    enforce: 'pre',
+    handleHotUpdate({ file, server }) {
+      if (file.includes('webgl')) {
+        server.ws.send({
+          type: 'full-reload',
+          path: '*'
+        });
+      }
+    }
+  };
+}
+
 // https://astro.build/config
 // https://docs.astro.build/en/guides/configuring-astro/
 const config = {
   server: {
     open: true,
     port: 3000
+  },
+  vite: {
+    plugins: [glsl(), hotReloadWebgl()]
   },
   site: 'https://jeremieboulay.fr',
   trailingSlash: 'always',

@@ -28,8 +28,10 @@ Dev tools :
 │   │   └── Card.astro
 │   ├── layouts/
 │   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
+│   ├── pages/
+│   │   └── index.astro
+│   └── webgl/
+│       └── index.ts
 └── package.json
 ```
 
