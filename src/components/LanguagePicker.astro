@@ -1,35 +1,40 @@
 ---
+import { astroI18n, l } from 'astro-i18n';
 import classNames from 'classnames';
-import { Languages } from 'data/enum';
-import { getI18nCopy, getI18nUrl } from 'data/i18n';
 
-interface Props {
-  lang: Languages;
-  path: string;
+interface Props {}
+
+const params: Record<string, string> = {};
+for (const [key, value] of Object.entries(Astro.params)) {
+  if (value === undefined) continue;
+  params[key] = String(value);
 }
-
-const { lang, path } = Astro.props;
-const languages = Object.values(Languages);
+const links = astroI18n.locales.map((locale) => ({
+  locale,
+  href:
+    l(Astro.url.pathname, params, {
+      targetLocale: locale
+    }) + '/'
+}));
 ---
 
 <ul class="z-1 fixed right-0 top-0 z-10 flex p-2">
   {
-    languages.map((_lang, idx) => {
-      const href = getI18nUrl(_lang, path);
+    links.map(({ locale, href }, idx) => {
       return (
         <>
           <li class="">
             <a
               class={classNames(`color p-1 transition duration-75 hover:text-secondary`, {
-                'text-secondary': lang === _lang,
-                'text-black': lang !== _lang
+                'text-secondary': locale === astroI18n.locale,
+                'text-black': locale !== astroI18n.locale
               })}
               href={href}
             >
-              {getI18nCopy(_lang).name}
+              {locale}
             </a>
           </li>
-          {idx < languages.length - 1 && <li>|</li>}
+          {idx < astroI18n.locales.length - 1 && <li>|</li>}
         </>
       );
     })

@@ -1,34 +1,42 @@
 ---
+import { astroI18n, t } from 'astro-i18n';
 import { ViewTransitions } from 'astro:transitions';
 
 import 'styles/global.css';
 
 import LanguagePicker from '~components/LanguagePicker.astro';
 import Webgl from '~components/Webgl';
-import type { Languages } from '~data/enum';
-import { getI18nCopy } from '~data/i18n';
 import { classicAnimationTransition } from '~utils/astro-custom-animation';
 
 interface Props {
-  lang: Languages;
-  path: string;
   title: string;
   description: string;
 }
 
-const { lang, path, title, description } = Astro.props;
-const { locale, mainTitle } = getI18nCopy(lang);
+const { title, description } = Astro.props;
 
 const name = import.meta.env.PUBLIC_APP_NAME;
 const author = import.meta.env.PUBLIC_APP_AUTHOR;
-const siteName = import.meta.env.SITE;
-const imageUrl = './public/preview.jpg';
+const origin = Astro.url.origin;
+const href = Astro.url.href;
+const imagePath = './public/preview.jpg';
+
+// https://github.com/alexandre-fernandez/astro-i18n#hreflangs
+const lang = astroI18n.locale;
+const hrefLangs = astroI18n.locales.map((locale) => ({
+  href: `${origin}${astroI18n.l(Astro.url.pathname, {
+    targetLocale: locale
+  })}`,
+  hreflang: locale
+}));
+
+console.log('hrefLangs', hrefLangs);
 
 // TODO 2023-11-19 jeremboo: Fix nested transition
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <title>{title}</title>
@@ -38,18 +46,20 @@ const imageUrl = './public/preview.jpg';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
+    {hrefLangs.map(({ href, hreflang }) => <link rel="alternate" href={href} hreflang={hreflang} />)}
+
     <meta property="og:site_name" content={name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={imageUrl} />
-    <meta property="og:url" content={`${siteName}${path}`} />
+    <meta property="og:image" content={imagePath} />
+    <meta property="og:url" content={href} />
     <ViewTransitions />
   </head>
   <body class="text-base">
-    <LanguagePicker lang={lang} path={path} />
+    <LanguagePicker />
     <main class="p-5" transition:animate={classicAnimationTransition(0.5, 0.2, 1)}>
       <h1 class="py-10 text-center text-h1 font-bold">
-        {mainTitle}
+        {t('main_title')}
         <span class="text-secondary">Astro Boilerplate</span>
       </h1>
       <slot transition:animate={classicAnimationTransition(0.5, 0.2, 1)} />

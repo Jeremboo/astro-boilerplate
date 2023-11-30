@@ -1,0 +1,19 @@
+---
+import { l, t } from 'astro-i18n';
+import Details from 'components/Details.astro';
+import { PageNames, Pages } from 'data/enum';
+import Layout from 'layouts/Layout.astro';
+
+interface Props {}
+
+const title = t('meta_title');
+const description = t('meta_description');
+
+const pageName = PageNames.About;
+const nextPageName = PageNames.Index;
+const nextHref = l(Pages.Index);
+---
+
+<Layout title={title} description={description}>
+  <Details pageName={pageName} nextPageName={nextPageName} href={nextHref} />
+</Layout>
