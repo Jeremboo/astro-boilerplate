@@ -66,7 +66,6 @@ All commands are run from the root of the project, from a terminal:
 - [Astro-imagetools](https://astro-imagetools-docs.vercel.app/en/components/Img): I removed it because it wasn't well maintained.
 - Use [Sharp](https://www.npmjs.com/package/sharp) if Astro-compress is not good : Node.js module to convert large images in common formats to smaller, web-friendly JPEG, PNG, WebP, GIF and AVIF images of varying dimensions. If Astro-imagetools or Astro-compress isn't good. See: https://docs.astro.build/en/reference/image-service-reference/
 - [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) instead of [Nanostores](https://github.com/nanostores/nanostores) ? Or @preact/signals (but it seems to be buggy with Astro).
-- [astro-i18n](https://github.com/Alexandre-Fernandez/astro-i18n/tree/main) : I did it from scratch but maybe this is better
 
 ## Inspiration
 
@@ -81,13 +80,10 @@ All commands are run from the root of the project, from a terminal:
 
 ## TODO
 
+- [astro-i18n](https://github.com/Alexandre-Fernandez/astro-i18n/tree/main): Implement it
 - Ogl particles : https://github.com/oframe/ogl/blob/master/examples/frustum-culling.html
-- Fix nested transition (https://www.youtube.com/watch?v=E749WFtPojg)
 - Ogl post processing : https://github.com/oframe/ogl/blob/master/examples/post-bloom.html
-- Fix bug frame rate by maybe extract the RAF from the Webgl component
-- Webgl transition between pages
+- Fix nested transition (https://www.youtube.com/watch?v=E749WFtPojg)
 - Add Tweakpane (or lil-gui)
-- Add Howler.js for sound
 - Open an issue with the transition persist
-- .env https://www.youtube.com/watch?v=qHu9NLUIHwM
 - https://www.npmjs.com/package/web-vitals
