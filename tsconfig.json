@@ -5,15 +5,16 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "baseUrl": "./src",
+    "types": ["vite-plugin-glsl/ext"],
     "paths": {
-      "@components/*": ["components/*"],
-      "@data/*": ["data/*"],
-      "@pages/*": ["pages/*"],
-      "@store/*": ["store/*"],
-      "@styles/*": ["styles/*"],
-      "@layouts/*": ["layouts/*"],
-      "@utils/*": ["utils/*"],
-      "@webgl/*": ["webgl/*"]
+      "~components/*": ["components/*"],
+      "~data/*": ["data/*"],
+      "~pages/*": ["pages/*"],
+      "~store/*": ["store/*"],
+      "~styles/*": ["styles/*"],
+      "~layouts/*": ["layouts/*"],
+      "~utils/*": ["utils/*"],
+      "~webgl/*": ["webgl/*"]
     }
   }
 }

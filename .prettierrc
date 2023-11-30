@@ -3,5 +3,14 @@
   "endOfLine": "auto",
   "printWidth": 120,
   "singleQuote": true,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss", "prettier-plugin-astro-organize-imports"],
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
 }

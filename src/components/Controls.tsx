@@ -1,15 +1,16 @@
 import { useStore } from '@nanostores/preact';
 import { useCallback } from 'preact/hooks';
 
+import type { Languages } from '~data/enum';
 import { PageNames } from '~data/enum';
 import { getI18nCopy } from '~data/i18n';
-import { selectedLanguage } from '~store/i18n';
 import { decreaseRotation, increaseRotation, rotation } from '~store/webgl';
 
-export default function Controls() {
-  const $selectedLanguage = useStore(selectedLanguage);
+type Props = { lang: Languages };
+
+export default function Controls({ lang }: Props) {
   const $rotation = useStore(rotation);
-  const { increase, decrease } = getI18nCopy($selectedLanguage)[PageNames.Index];
+  const { increase, decrease } = getI18nCopy(lang)[PageNames.Index];
 
   const handleIncrease = useCallback(() => {
     increaseRotation(0.01);

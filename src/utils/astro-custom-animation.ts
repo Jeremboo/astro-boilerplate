@@ -42,10 +42,11 @@ export const delayedTransition = (duration: number) => {
 };
 
 // NOTE 2023-11-17 jeremboo: Custom classic fade out as dummy example
-export const classicAnimationTransition = (animInDuration: number, animOutDuration: number) => {
+export const classicAnimationTransition = (animInDuration: number, animOutDuration: number, delay: number = 0) => {
   return customAnimationTransition({
     animInDuration,
-    animOutDuration
+    animOutDuration,
+    transitionOffset: delay
   });
 };
 

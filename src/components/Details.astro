@@ -1,14 +1,18 @@
 ---
+import type { Languages, PageNames } from 'data/enum';
+import { getI18nCopy } from 'data/i18n';
 interface Props {
-	pageName: string;
-	nextPageName: string;
-	href: string;
+  lang: Languages;
+  pageName: PageNames;
+  nextPageName: string;
+  href: string;
 }
 
-const { pageName, nextPageName, href } = Astro.props;
+const { lang, pageName, nextPageName, href } = Astro.props;
+const { goTo, thisis } = getI18nCopy(lang)[pageName];
 ---
 
 <content class="text-center">
-	<h4 class="text-h4">This is the {pageName} page.</h2>
-	<p>Go to <a href={href}>{nextPageName}</a>.</p>
+  <h4 class="text-h4">{thisis} {pageName}.</h4>
+  <p>{goTo} <a href={href}>{nextPageName}</a>.</p>
 </content>

@@ -1,24 +1,59 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 
-import '@styles/global.css';
-import { classicAnimationTransition } from '@utils/astro-custom-animation';
+import 'styles/global.css';
+
+import LanguagePicker from '~components/LanguagePicker.astro';
+import Webgl from '~components/Webgl';
+import type { Languages } from '~data/enum';
+import { getI18nCopy } from '~data/i18n';
+import { classicAnimationTransition } from '~utils/astro-custom-animation';
 
 interface Props {
-	site_name: string;
-	title: string;
-	description: string;
-	author: string;
-	locale_region: string;
-	locale: string;
+  lang: Languages;
+  path: string;
+  title: string;
+  description: string;
 }
 
-const { title, description, author } = Astro.props;
+const { lang, path, title, description } = Astro.props;
+const { locale, mainTitle } = getI18nCopy(lang);
 
-const customTransitionProps = classicAnimationTransition(0.5, 0.2);
+const name = import.meta.env.PUBLIC_APP_NAME;
+const author = import.meta.env.PUBLIC_APP_AUTHOR;
+const siteName = import.meta.env.SITE;
+const imageUrl = './public/preview.jpg';
+
+// TODO 2023-11-19 jeremboo: Fix nested transition
 ---
 
 <!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:site_name" content={name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:url" content={`${siteName}${path}`} />
+    <ViewTransitions />
+  </head>
+  <body class="text-base">
+    <LanguagePicker lang={lang} path={path} />
+    <main class="p-5" transition:animate={classicAnimationTransition(0.5, 0.2, 1)}>
+      <h1 class="py-10 text-center text-h1 font-bold">
+        {mainTitle}
+        <span class="text-secondary">Astro Boilerplate</span>
+      </h1>
+      <slot transition:animate={classicAnimationTransition(0.5, 0.2, 1)} />
+    </main>
     <Webgl client:load transition:persist />
     <!-- <script transition:persist>
 			console.log('About');
@@ -29,5 +64,5 @@ const customTransitionProps = classicAnimationTransition(0.5, 0.2);
 				console.log('About page load');
 			},{ once: true });
 		</script> -->
-	</body>
+  </body>
 </html>

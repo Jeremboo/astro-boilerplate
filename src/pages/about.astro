@@ -1,16 +1,17 @@
 ---
+import Details from 'components/Details.astro';
+import { Languages, PageNames, Pages } from 'data/enum';
+import { getI18nCopy, getI18nUrl } from 'data/i18n';
 import Layout from 'layouts/Layout.astro';
-import Details from '@components/Details.astro';
-import { Pages } from '@data/enum';
+
+interface Props {
+  lang?: Languages;
+}
+
+const { lang = Languages.en } = Astro.props;
+const { title, description } = getI18nCopy(lang)[PageNames.About];
 ---
 
-<Layout
-	site_name="Astro boilerplate"
-	title="Welcome to Astro."
-	description="Boilerplate built with Astro using Preact and Tailwind CSS"
-	author="Jeremie Boulay"
-	locale_region="en-us"
-	locale="en"
->
-	<Details pageName="About" nextPageName="Index" href={Pages.Index} />
+<Layout path={Pages.About} title={title} description={description} lang={lang}>
+  <Details lang={lang} pageName={PageNames.About} nextPageName="Index" href={getI18nUrl(lang, Pages.Index)} />
 </Layout>

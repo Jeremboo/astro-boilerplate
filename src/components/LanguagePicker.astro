@@ -1,0 +1,37 @@
+---
+import classNames from 'classnames';
+import { Languages } from 'data/enum';
+import { getI18nCopy, getI18nUrl } from 'data/i18n';
+
+interface Props {
+  lang: Languages;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const languages = Object.values(Languages);
+---
+
+<ul class="z-1 fixed right-0 top-0 z-10 flex p-2">
+  {
+    languages.map((_lang, idx) => {
+      const href = getI18nUrl(_lang, path);
+      return (
+        <>
+          <li class="">
+            <a
+              class={classNames(`color p-1 transition duration-75 hover:text-secondary`, {
+                'text-secondary': lang === _lang,
+                'text-black': lang !== _lang
+              })}
+              href={href}
+            >
+              {getI18nCopy(_lang).name}
+            </a>
+          </li>
+          {idx < languages.length - 1 && <li>|</li>}
+        </>
+      );
+    })
+  }
+</ul>

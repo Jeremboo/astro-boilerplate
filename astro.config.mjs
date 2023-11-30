@@ -6,12 +6,9 @@ import robotsTxt from 'astro-robots-txt';
 import compress from 'astro-compress';
 import favicons from 'astro-favicons';
 import glsl from 'vite-plugin-glsl';
+import dotenv from 'dotenv';
 
-/*
- * * *******************
- * * DEFAULT CONFIG FILE
- * * *******************
- */
+dotenv.config();
 
 // NOTE 2023-11-25 jeremboo: Custom Vite.js Plugin to for reloading when any file in the webgl folder is updated
 function hotReloadWebgl() {
@@ -39,7 +36,7 @@ const config = {
   vite: {
     plugins: [glsl(), hotReloadWebgl()]
   },
-  site: 'https://jeremieboulay.fr',
+  site: process.env.PUBLIC_APP_SITE,
   trailingSlash: 'always',
   // Use to always append '/' at end of url
   // markdown: {
@@ -63,14 +60,15 @@ const isDevMode = process.env.NODE_ENV === 'development';
 if (!isDevMode) {
   config.integrations.push(
     // TODO 2023-11-17 jeremboo: It also generate the files into public/ on build time... Find a way to remove them.
+    // TODO 2023-11-29 jeremboo: If some files needs to be i18n. Can't be done here
     // https://github.com/ACP-CODE/astro-favicons/issues/6
     favicons({
       masterPicture: './public/favicon.svg',
       emitAssets: true,
       faviconsDarkMode: true,
-      appName: 'Astro boilerplate',
-      appShortName: 'Astro boilerplate',
-      appDescription: 'Astro boilerplate',
+      appName: process.env.PUBLIC_APP_NAME,
+      appShortName: process.env.PUBLIC_APP_NAME,
+      appDescription: process.env.PUBLIC_APP_DESCRIPTION,
       lang: 'en-US',
       background: '#fff',
       theme_color: '#fff'

@@ -34,18 +34,8 @@
     // Configuration for TypeScript files
     {
       "files": ["**/*.ts", "**/*.tsx"],
-      "plugins": [
-        "@typescript-eslint",
-        "react",
-        "unused-imports",
-        "tailwindcss",
-        "simple-import-sort"
-      ],
-      "extends": [
-        "plugin:tailwindcss/recommended",
-        "airbnb-typescript",
-        "plugin:prettier/recommended"
-      ],
+      "plugins": ["@typescript-eslint", "react", "unused-imports", "tailwindcss", "simple-import-sort"],
+      "extends": ["plugin:tailwindcss/recommended", "airbnb-typescript", "plugin:prettier/recommended"],
       "parserOptions": {
         "project": "./tsconfig.json"
       },
@@ -83,28 +73,19 @@
         "simple-import-sort/imports": "error", // Import configuration for `eslint-plugin-simple-import-sort`
         "simple-import-sort/exports": "error", // Export configuration for `eslint-plugin-simple-import-sort`
         "@typescript-eslint/no-unused-vars": "off",
-        "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": [
-          "error",
-          { "argsIgnorePattern": "^_" }
-        ]
+        // "unused-imports/no-unused-imports": "warn",
+        "unused-imports/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "class-methods-use-this": "off",
+        "lines-between-class-members": "off",
+        "@typescript-eslint/lines-between-class-members": "off",
+        "no-plusplus": "off"
       }
     },
     // Configuration for Astro
     {
       "files": ["**/*.astro"],
-      "plugins": [
-        "@typescript-eslint",
-        "react",
-        "unused-imports",
-        "tailwindcss",
-        "simple-import-sort"
-      ],
-      "extends": [
-        "plugin:tailwindcss/recommended",
-        "airbnb-typescript",
-        "plugin:prettier/recommended"
-      ],
+      "plugins": ["@typescript-eslint", "react", "unused-imports", "tailwindcss", "simple-import-sort"],
+      "extends": ["plugin:tailwindcss/recommended", "airbnb-typescript", "plugin:prettier/recommended"],
       "parser": "astro-eslint-parser",
       "parserOptions": {
         "parser": "@typescript-eslint/parser",
@@ -153,10 +134,7 @@
         "simple-import-sort/exports": "error", // Export configuration for `eslint-plugin-simple-import-sort`
         "@typescript-eslint/no-unused-vars": "off",
         "unused-imports/no-unused-imports": "error",
-        "unused-imports/no-unused-vars": [
-          "error",
-          { "argsIgnorePattern": "^_" }
-        ]
+        "unused-imports/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
       },
       "globals": {
         "Astro": "readonly"

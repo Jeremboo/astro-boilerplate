@@ -65,24 +65,29 @@ All commands are run from the root of the project, from a terminal:
 - [nanoid](https://www.npmjs.com/package/nanoid) : Generate unique ID (+130bytes)
 - [Astro-imagetools](https://astro-imagetools-docs.vercel.app/en/components/Img): I removed it because it wasn't well maintained.
 - Use [Sharp](https://www.npmjs.com/package/sharp) if Astro-compress is not good : Node.js module to convert large images in common formats to smaller, web-friendly JPEG, PNG, WebP, GIF and AVIF images of varying dimensions. If Astro-imagetools or Astro-compress isn't good. See: https://docs.astro.build/en/reference/image-service-reference/
-- [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) instead of [Nanostores](https://github.com/nanostores/nanostores) ?
+- [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) instead of [Nanostores](https://github.com/nanostores/nanostores) ? Or @preact/signals (but it seems to be buggy with Astro).
+- [astro-i18n](https://github.com/Alexandre-Fernandez/astro-i18n/tree/main) : I did it from scratch but maybe this is better
 
 ## Inspiration
 
 - https://github.com/ixartz/Astro-boilerplate/tree/main
 - https://github.com/Experience-Monks/nextjs-boilerplate/tree/main
 
+## Troubleshooting
+
+- The transition between pages with a canvas in the background looks really off. Looks like there is 2 canvases at the same time instead of one.
+- The nested transitions aren't working properly
+- The HMR isn't working into the webgl folder. I had to create a custom vite.js plugin to refresh the entire page
+
 ## TODO
 
-- Créer le store
-- Crée preact example
-- Use the jam3's linter instead
-- Add semicolons
-- WebGL base
-- Multi-language with [i18n](https://docs.astro.build/en/recipes/i18n/) ? https://github.com/alexandre-fernandez/astro-i18n
-- With npm run build-css package.json command
-- Javascript basic tools functions
-- Favicon generator: https://kremalicious.com/favicon-generation-with-astro/, https://rodneylab.com/astro-js-favicon/, https://github.com/itgalaxy/favicons
-- Better metadata: https://code.juliancataldo.com/component/astro-seo-metadata/#doc, https://github.com/codiume/orbit/tree/main/packages/astro-seo-meta
-- Remove in template the useless folder
-- PostCSS ?
+- Ogl particles : https://github.com/oframe/ogl/blob/master/examples/frustum-culling.html
+- Fix nested transition (https://www.youtube.com/watch?v=E749WFtPojg)
+- Ogl post processing : https://github.com/oframe/ogl/blob/master/examples/post-bloom.html
+- Fix bug frame rate by maybe extract the RAF from the Webgl component
+- Webgl transition between pages
+- Add Tweakpane (or lil-gui)
+- Add Howler.js for sound
+- Open an issue with the transition persist
+- .env https://www.youtube.com/watch?v=qHu9NLUIHwM
+- https://www.npmjs.com/package/web-vitals
