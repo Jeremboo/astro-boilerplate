@@ -1,4 +1,5 @@
 import { useStore } from '@nanostores/preact';
+import { l, t } from 'astro-i18n';
 import { useCallback } from 'preact/hooks';
 
 import { decreaseRotation, increaseRotation, rotation } from '~store/webgl';
@@ -17,16 +18,18 @@ export default function Controls({}: Props) {
 
   return (
     <div class="absolute inset-x-5 bottom-5">
-      <p class="w-full text-center font-bold">Current rotation : {$rotation}</p>
+      <p class="w-full text-center font-bold">
+        {t('current_rotation')} : {$rotation}
+      </p>
       <ul class="mt-2 flex justify-center">
         <li>
           <button class="m-1 rounded bg-secondary px-3 py-1" onClick={handleDecrease}>
-            {'d'}
+            {t('buttons.decrease')}
           </button>
         </li>
         <li>
           <button class="m-1 rounded bg-secondary px-3 py-1" onClick={handleIncrease}>
-            {'i'}
+            {t('buttons.increase')}
           </button>
         </li>
       </ul>

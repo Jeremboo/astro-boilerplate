@@ -15,9 +15,10 @@ export default defineAstroI18nConfig({
         description: 'Boilerplate built with Astro using Preact, Tailwind CSS and more',
         this_is: 'This is the page',
         go_to: 'Go to',
+        current_rotation: 'Current rotation',
         buttons: {
           increase: 'Increase',
-          descrease: 'Decrease'
+          decrease: 'Decrease'
         }
       },
       fr: {
@@ -27,9 +28,10 @@ export default defineAstroI18nConfig({
         description: "Boilerplate équipé d'Astro, Preact, Tailwind CSS et plus encore.",
         this_is: 'Voici la page',
         go_to: 'Aller à la page',
+        current_rotation: 'Rotation actuelle',
         buttons: {
           increase: 'Augmenter',
-          descrease: 'Réduire'
+          decrease: 'Réduire'
         }
       }
     },
