@@ -36,7 +36,7 @@ const config = {
   vite: {
     plugins: [glsl(), hotReloadWebgl()]
   },
-  site: process.env.PUBLIC_APP_SITE,
+  site: process.env.APP_SITE,
   trailingSlash: 'always',
   // Use to always append '/' at end of url
   // markdown: {
