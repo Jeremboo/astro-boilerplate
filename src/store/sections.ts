@@ -1,5 +1,5 @@
 // https://github.com/nanostores/nanostores#guide
-import { action, atom } from 'nanostores';
+import { atom } from 'nanostores';
 
 import { SECTION_ORDER } from '~data/sections';
 import { Sections } from '~types/enum';
@@ -14,16 +14,16 @@ import { Sections } from '~types/enum';
 export const $sectionCurrent = atom<Sections>(Sections.Loading);
 export const $sectionNext = atom<Sections>($sectionCurrent.get());
 
-export const previousSection = action($sectionNext, 'goToPreviousSection', (store) => {
-  const currentSectionIdx = SECTION_ORDER.indexOf(store.get());
-  store.set(SECTION_ORDER[Math.max(0, currentSectionIdx - 1)]);
-});
+export const previousSection = () => {
+  const currentSectionIdx = SECTION_ORDER.indexOf($sectionNext.get());
+  $sectionNext.set(SECTION_ORDER[Math.max(0, currentSectionIdx - 1)]);
+};
 
-export const nextSection = action($sectionNext, 'goToNextSection', (store) => {
-  const currentSectionIdx = SECTION_ORDER.indexOf(store.get());
-  store.set(SECTION_ORDER[Math.min(SECTION_ORDER.length - 1, currentSectionIdx + 1)]);
-});
+export const nextSection = () => {
+  const currentSectionIdx = SECTION_ORDER.indexOf($sectionNext.get());
+  $sectionNext.set(SECTION_ORDER[Math.min(SECTION_ORDER.length - 1, currentSectionIdx + 1)]);
+};
 
-export const goToSection = action($sectionNext, 'goToSection', (store, newSection: Sections) => {
-  store.set(newSection);
-});
+export const goToSection = (newSection: Sections) => {
+  $sectionNext.set(newSection);
+};

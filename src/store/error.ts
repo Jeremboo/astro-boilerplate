@@ -1,4 +1,4 @@
-import { action, map } from 'nanostores';
+import { map } from 'nanostores';
 
 type Props = {
   isErrorMessageVisible: boolean;
@@ -10,14 +10,20 @@ export const $error = map<Props>({
   errorMessage: ''
 });
 
-export const showErrorMessage = action($error, 'showErrorMessage', (store, message) => {
+/*
+ * * *******************
+ * * ACTIONS
+ * * *******************
+ */
+
+export const showErrorMessage = (message: string) => {
   // batch updates
-  store.set({
+  $error.set({
     isErrorMessageVisible: true,
     errorMessage: message
   });
-});
+};
 
-export const hideErrorMessage = action($error, 'hideErrorMessage', (store) => {
-  store.setKey('isErrorMessageVisible', false);
-});
+export const hideErrorMessage = () => {
+  $error.setKey('isErrorMessageVisible', false);
+};

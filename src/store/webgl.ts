@@ -1,5 +1,5 @@
 // https://github.com/nanostores/nanostores#guide
-import { action, map, type StoreValue } from 'nanostores';
+import { map, type StoreValue } from 'nanostores';
 
 import { deepCopy } from '~utils/index';
 
@@ -15,20 +15,18 @@ export const $webgl = map({
 // NOTE 2023-12-26 jeremboo: To make typescript happy, I need to pass to map(the real object). So I'm doing this copy after
 const defaultSnapshot = deepCopy($webgl.get());
 
-export const setWebglProps = action($webgl, 'setWebglProps', (store, key: WebglStoreKeys, newValue: any) => {
-  store.setKey(key, newValue);
-});
+export const setWebglProps = (key: WebglStoreKeys, newValue: any) => {
+  $webgl.setKey(key, newValue);
+};
 
-export const resetWebgl = action($webgl, 'ResetAll', (store) => {
-  store.set(deepCopy(defaultSnapshot));
-});
+export const resetWebgl = () => {
+  $webgl.set(deepCopy(defaultSnapshot));
+};
 
-export const increaseRotation = action($webgl, 'increaseRotation', (store, add) => {
-  store.setKey('rotation', store.get().rotation + add);
-  return store.get().rotation;
-});
+export const increaseRotation = (increment = 1) => {
+  $webgl.setKey('rotation', $webgl.get().rotation + increment);
+};
 
-export const decreaseRotation = action($webgl, 'decreaseRotation', (store, add) => {
-  store.setKey('rotation', store.get().rotation - add);
-  return store.get().rotation;
-});
+export const decreaseRotation = (increment = 1) => {
+  $webgl.setKey('rotation', $webgl.get().rotation - increment);
+};
