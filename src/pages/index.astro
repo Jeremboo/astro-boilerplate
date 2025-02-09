@@ -1,20 +1,15 @@
 ---
-import Details from '~components/Details.astro';
-import { Languages, PageNames, Pages } from '~data/enum';
+import { Languages } from '~types/enum';
 import Layout from '~layouts/Layout.astro';
 
+import App from '~components/App';
 interface Props {
   lang?: Languages;
 }
 
-import Controls from '~components/Controls';
-import { getI18nCopy, getI18nUrl } from '~data/i18n';
-
 const { lang = Languages.en } = Astro.props;
-const { title, description } = getI18nCopy(lang)[PageNames.About];
 ---
 
-<Layout path="/" title={title} description={description} lang={lang}>
-  <Details lang={lang} pageName={PageNames.Index} nextPageName="About" href={getI18nUrl(lang, Pages.About)} />
-  <Controls lang={lang} client:load />
+<Layout lang={lang}>
+  <App lang={lang} client:load />
 </Layout>

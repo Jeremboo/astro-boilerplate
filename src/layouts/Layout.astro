@@ -1,68 +1,112 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
-
 import 'styles/global.css';
 
-import LanguagePicker from '~components/LanguagePicker.astro';
+import ShareEn from '~assets/images/share-en.png';
+import ShareFr from '~assets/images/share-fr.png';
+
+import LandscapeLock from '~components/LandscapeLock';
+import Menu from '~components/Menu';
+import MenuButton from '~components/MenuButton';
+import ToggleMenu from '~components/ToggleMenu';
 import Webgl from '~components/Webgl';
-import type { Languages } from '~data/enum';
-import { getI18nCopy } from '~data/i18n';
-import { classicAnimationTransition } from '~utils/astro-custom-animation';
+import { Languages } from '~types/enum';
+import type { LanguagesNames } from '~types/index';
+import { getI18nCopy } from '~utils/i18n';
+// import { classicAnimationTransition } from '~utils/astro-custom-animation';
 
 interface Props {
   lang: Languages;
-  path: string;
-  title: string;
-  description: string;
+  forceDebug?: boolean;
 }
 
-const { lang, path, title, description } = Astro.props;
-const { locale, mainTitle } = getI18nCopy(lang);
+const { lang, forceDebug = false } = Astro.props;
+const {
+  locale,
+  meta: { title, description },
+  cta: { menu, back }
+} = await getI18nCopy(lang);
 
 const name = import.meta.env.PUBLIC_APP_NAME;
-const author = import.meta.env.PUBLIC_APP_AUTHOR;
-const siteName = import.meta.env.SITE;
-const imageUrl = './public/preview.jpg';
+const href = Astro.url.href;
+const imageUrl = lang === Languages.en ? ShareEn : ShareFr;
+
+// I18n
+const languages = Object.values(Languages);
+const languageNames = await languages.reduce(
+  async (acc, lang) => {
+    const { name } = await getI18nCopy(lang);
+    return { ...(await acc), [lang]: name };
+  },
+  Promise.resolve({} as LanguagesNames)
+);
+
+const isDev = import.meta.env.DEV;
 
 // TODO 2023-11-19 jeremboo: Fix nested transition
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} class="size-full">
   <head>
+    <!-- <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-N736LXNK');
+    </script> -->
     <meta charset="UTF-8" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content={author} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
 
     <meta property="og:site_name" content={name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={imageUrl} />
-    <meta property="og:url" content={`${siteName}${path}`} />
-    <ViewTransitions />
+    <meta property="og:image" content={imageUrl.src} />
+    <meta property="og:url" content={href} />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content={href} />
+    <meta property="twitter:url" content={href} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl.src} />
+
+    <!-- <ViewTransitions /> -->
   </head>
-  <body class="text-base">
-    <LanguagePicker lang={lang} path={path} />
-    <main class="p-5" transition:animate={classicAnimationTransition(0.5, 0.2, 1)}>
-      <h1 class="py-10 text-center text-h1 font-bold">
-        {mainTitle}
-        <span class="text-secondary">Astro Boilerplate</span>
-      </h1>
-      <slot transition:animate={classicAnimationTransition(0.5, 0.2, 1)} />
+  <body
+    class="transition-bg flex size-full flex-col items-center overflow-hidden bg-background text-white duration-base"
+  >
+    <!-- <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-N736LXNK"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe>
+    </noscript> -->
+    <ToggleMenu lang={lang} languages={languageNames} client:load transition:persist />
+    <nav class="absolute left-0 top-0 flex w-full items-center justify-between">
+      <MenuButton menuCopy={menu} backCopy={back} client:load />
+    </nav>
+    <main class="size-full overflow-y-auto overflow-x-hidden">
+      <div class="relative size-full">
+        <div class="m-auto flex size-full max-w-[1279px] flex-col">
+          <!-- transition:animate={classicAnimationTransition(0.5, 0.2, 1)} -->
+          <slot />
+        </div>
+      </div>
+      <Menu client:load />
     </main>
     <Webgl client:load transition:persist />
-    <!-- <script transition:persist>
-			console.log('About');
-			document.addEventListener('astro:after-swap', () => {
-				console.log('About afterSwap');
-			}, { once: true });
-			document.addEventListener('astro:page-load', () => {
-				console.log('About page load');
-			},{ once: true });
-		</script> -->
+    <LandscapeLock client:load />
   </body>
 </html>

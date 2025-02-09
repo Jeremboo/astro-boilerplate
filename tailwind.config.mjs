@@ -1,40 +1,55 @@
-// NOTE 2023-11-16 jeremboo: Easily setup fontSize from Figma for instance
-function fontSize(fontSizePx, lineHeightPx, letterSpacing, fontWeight) {
-  return [
-    `${fontSizePx / 16}rem`,
-    {
-      lineHeight: lineHeightPx && lineHeightPx / fontSizePx,
-      letterSpacing,
-      fontWeight
-    }
-  ];
+// function figmaRescaler(size) {
+//   return size * (1440 / 1728);
+// }
+
+// function pxToRem(px) {
+//   return `${figmaRescaler(px) * 0.1}rem`;
+// }
+
+// // NOTE 2023-11-16 jeremboo: Use it to easily convert fontSize from Figma to your code
+// function fontSize(fontSizePx, lineHeightPercent, letterSpacing, fontWeight = 400, withRescaler = true) {
+//   const recalculatedFontSizePx = withRescaler ? figmaRescaler(fontSizePx) : fontSizePx;
+//   return [
+//     // NOTE 2023-12-01 jeremboo: This is not 16 because I reset font-size to 10px in html
+//     `${recalculatedFontSizePx / 10}rem`,
+//     {
+//       lineHeight: (lineHeightPercent || 100) / 100,
+//       letterSpacing: `${recalculatedFontSizePx * letterSpacing * 0.01}px`,
+//       fontWeight
+//     }
+//   ];
+// }
+
+function createZIndexList(keys) {
+  return keys.reduce((acc, key, idx) => {
+    return Object.assign(acc, { [key]: idx + 1 });
+  }, {});
 }
 
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
-    // NOTE 2023-11-16 jeremboo: Check .src/styles/global.css
     // https://night-tailwindcss.vercel.app/docs/customizing-colors
     colors: {
+      // Static colors
       transparent: 'transparent',
-      current: 'currentColor',
-      white: 'var(--white-color)',
-      black: 'var(--black-color)',
+      white: '#ffffff',
+      whiteTransparent: 'rgba(255, 255, 255, 0.4)',
+      black: '#000000',
+      blackTransparent: 'rgba(0, 0, 0, 0.4)',
+      // Dynamic/Theme colors (who can be updated)
       primary: 'var(--primary-color)',
       secondary: 'var(--secondary-color)',
-      background: 'var(--background-color)'
+      background: `var(--background-color)`
     },
-    fontSize: {
-      h1: fontSize(56, 60),
-      h2: fontSize(50, 60),
-      h3: fontSize(24, 30),
-      h4: fontSize(20, 26),
-      base: fontSize(14, 21),
-      small: fontSize(12, 18)
+    fontSize: {},
+    transitionDuration: {
+      base: '200ms',
+      long: '500ms'
     },
     fontFamily: {
-      sans: ['Century Gothic', 'CenturyGothic', 'AppleGothic', 'sans-serif'],
+      sans: ['Cabin', 'CenturyGothic', 'AppleGothic', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
       code: [
         'Menlo',
@@ -47,7 +62,25 @@ export default {
         'monospace'
       ]
     },
-    extend: {}
+    screens: {
+      // Orientation
+      landscape: { raw: '(orientation: landscape)' }
+    },
+    extend: {
+      // eslint-disable-next-line prefer-object-spread
+      zIndex: Object.assign(
+        {
+          webgl: -1
+        },
+        createZIndexList(['toggle', 'menu', 'nav', 'debug', 'popup', 'error', 'landscape'])
+      ),
+      transitionDelay: {
+        0: '0ms'
+      },
+      minWidth: {},
+      maxWidth: {},
+      gridTemplateColumns: {}
+    }
   },
   plugins: []
 };

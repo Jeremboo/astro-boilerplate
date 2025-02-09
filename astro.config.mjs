@@ -6,9 +6,9 @@ import robotsTxt from 'astro-robots-txt';
 import compress from 'astro-compress';
 import favicons from 'astro-favicons';
 import glsl from 'vite-plugin-glsl';
-import dotenv from 'dotenv';
+import { loadEnv } from 'vite';
 
-dotenv.config();
+const { APP_BASE, APP_SITE } = loadEnv(process.env.NODE_ENV, process.cwd(), '');
 
 // NOTE 2023-11-25 jeremboo: Custom Vite.js Plugin to for reloading when any file in the webgl folder is updated
 function hotReloadWebgl() {
@@ -26,6 +26,17 @@ function hotReloadWebgl() {
   };
 }
 
+// Transform video plugin
+function optimizeVideos() {
+  return {
+    name: 'optimizeVideos',
+    buildEnd() {
+      // TODO 2024-06-15 jeremboo: Finish this commande
+      // exec(`mp4ToWebm `);
+    }
+  };
+}
+
 // https://astro.build/config
 // https://docs.astro.build/en/guides/configuring-astro/
 const config = {
@@ -34,10 +45,13 @@ const config = {
     port: 3000
   },
   vite: {
-    plugins: [glsl(), hotReloadWebgl()]
+    plugins: [glsl(), hotReloadWebgl(), optimizeVideos()],
+    optimizeDeps: {
+      exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util']
+    }
   },
-  site: process.env.APP_SITE,
-  trailingSlash: 'always',
+  site: `${APP_SITE}${APP_BASE}`,
+  base: APP_BASE,
   // Use to always append '/' at end of url
   // markdown: {
   //   shikiConfig: {
@@ -63,7 +77,8 @@ if (!isDevMode) {
     // TODO 2023-11-29 jeremboo: If some files needs to be i18n. Can't be done here
     // https://github.com/ACP-CODE/astro-favicons/issues/6
     favicons({
-      masterPicture: './public/favicon.svg',
+      // path: process.env.APP_BASE,
+      masterPicture: './public/favicon.png',
       emitAssets: true,
       faviconsDarkMode: true,
       appName: process.env.PUBLIC_APP_NAME,

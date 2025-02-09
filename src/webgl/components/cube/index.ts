@@ -1,23 +1,22 @@
 import { Box, Mesh, type OGLRenderingContext, Program } from 'ogl';
 
-import { rotation } from '~store/webgl';
+import { $webgl, type WebglStore } from '~store/webgl';
+import subscribeKeys from '~utils/subscribe-keys';
 
 import fragment from './frag.glsl';
 import vertex from './vert.glsl';
 
 class Cube extends Mesh {
-  rotationSpeed: number;
+  rotationSpeed = $webgl.get().rotation;
 
   constructor(gl: OGLRenderingContext) {
     super(gl, { geometry: new Box(gl), program: new Program(gl, { vertex, fragment }) });
 
-    this.rotationSpeed = rotation.get();
-
-    rotation.subscribe(this.handleRotationUpdate);
+    subscribeKeys($webgl, ['rotation'], this.handleRotationUpdate);
   }
 
-  handleRotationUpdate = (_rotation: number) => {
-    this.rotationSpeed = _rotation;
+  handleRotationUpdate = ({ rotation }: WebglStore) => {
+    this.rotationSpeed = rotation;
   };
 
   update() {

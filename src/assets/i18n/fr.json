@@ -1,0 +1,35 @@
+{
+  "name": "Fr",
+  "locale": "Fr",
+  "localeRegion": "fr-ca",
+  "meta": {
+    "title": "Astro boilerplate",
+    "description": "Boilerplate built with Astro using React and Tailwind CSS"
+  },
+  "cta": {
+    "Menu": "Menu",
+    "next": "Suivant",
+    "back": "Retour",
+    "yes": "Oui",
+    "no": "Non",
+    "close": "Fermer"
+  },
+  "alt": {
+    "portraitImg": "Téléphone en mode portrait"
+  },
+  "error": {
+    "loading": "Erreur lors du chargement. Essayer plus tard.",
+    "sendInfo": "Erreur lors de l'envoie de votre information au serveur. Essayer plus tard.",
+    "shareProps": "Erreur dans le lien partagé, mais vous pouvez toujours aller créer votre propre anthems par vous-même."
+  },
+  "portraitMode": "Cette expérience est mieux visualisée en mode portrait.",
+  "a11y": {
+    "soundToggle": "Coupez/Mettre le son",
+    "animationToggle": "Coupez/Mettre l'animation",
+    "languageToggle": "Changer de langue"
+  },
+  "home": {
+    "cta": "Aller",
+    "copy": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  }
+}

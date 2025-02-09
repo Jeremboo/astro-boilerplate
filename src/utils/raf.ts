@@ -16,7 +16,7 @@ class RAF {
     while (--i >= 0) {
       this.listeners[i](delta);
     }
-    this.listeners.forEach((listener) => listener(delta));
+    // this.listeners.forEach((listener) => listener(delta));
     this.frameId = requestAnimationFrame(this.onFrame);
   };
 

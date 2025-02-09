@@ -1,18 +1,23 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "include": ["src/**/*"],
   "compilerOptions": {
     "target": "es5",
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "baseUrl": "./src",
     "types": ["vite-plugin-glsl/ext"],
+    "lib": ["ES2021.String"],
     "paths": {
+      "~assets/*": ["assets/*"],
       "~components/*": ["components/*"],
       "~data/*": ["data/*"],
+      "~hooks/*": ["hooks/*"],
+      "~layouts/*": ["layouts/*"],
       "~pages/*": ["pages/*"],
       "~store/*": ["store/*"],
       "~styles/*": ["styles/*"],
-      "~layouts/*": ["layouts/*"],
+      "~types/*": ["types/*"],
       "~utils/*": ["utils/*"],
       "~webgl/*": ["webgl/*"]
     }

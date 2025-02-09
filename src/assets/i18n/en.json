@@ -1,0 +1,35 @@
+{
+  "name": "En",
+  "locale": "en",
+  "localeRegion": "en-ca",
+  "meta": {
+    "title": "Astro boilerplate",
+    "description": "Boilerplate built with Astro using React and Tailwind CSS"
+  },
+  "cta": {
+    "menu": "Menu",
+    "next": "Next",
+    "back": "Back",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close"
+  },
+  "alt": {
+    "portraitImg": "Phone in portrait mode"
+  },
+  "error": {
+    "loading": "Error while loading. Try later.",
+    "sendInfo": "Error while sending your information to the server. Try later.",
+    "shareProps": "Error in the shared link; you can still enjoy enjoy the experience yourself"
+  },
+  "portraitMode": "This experience is best viewed\nin portrait mode.",
+  "a11y": {
+    "soundToggle": "Sound switcher",
+    "animationToggle": "Animation switcher",
+    "languageToggle": "Language switcher"
+  },
+  "home": {
+    "cta": "Go",
+    "copy": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  }
+}
