@@ -1,4 +1,3 @@
-import gsap from 'gsap';
 import { Box, InstancedMesh, type OGLRenderingContext, Program, Vec3 } from 'ogl';
 
 import { randomFloat } from '~utils/index';
@@ -80,17 +79,6 @@ export default class Stars extends InstancedMesh {
     // TODO 2023-12-21 jeremboo: Check how to test the depth
     this.program.depthWrite = depthWrite;
   }
-
-  /*
-   * * *******************
-   * * HANDLE
-   * * *******************
-   */
-
-  handleWebglOrientation = ({ orientation: [x, y, z] }: { orientation: number[] }) => {
-    if (!this.isOrientationAnimationAllowed) return;
-    gsap.to(this.rotation, { x, y, z, duration: 2, ease: 'elastic.out(0.8, 0.5)' });
-  };
 
   /*
    * * *******************

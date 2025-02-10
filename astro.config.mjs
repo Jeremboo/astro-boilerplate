@@ -78,7 +78,7 @@ if (!isDevMode) {
     // https://github.com/ACP-CODE/astro-favicons/issues/6
     favicons({
       // path: process.env.APP_BASE,
-      masterPicture: './public/favicon.png',
+      masterPicture: './public/favicon.svg',
       emitAssets: true,
       faviconsDarkMode: true,
       appName: process.env.PUBLIC_APP_NAME,
