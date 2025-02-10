@@ -60,6 +60,10 @@ const config = {
   //     theme: 'monokai',
   //   },
   // },
+  i18n: {
+    locales: ['en', 'fr'],
+    defaultLocale: 'en'
+  },
   integrations: [preact(), tailwind(), sitemap(), robotsTxt(), compress()]
 };
 
