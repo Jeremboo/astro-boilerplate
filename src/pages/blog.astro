@@ -1,0 +1,15 @@
+---
+import Container from '~components/Container.astro';
+import Layout from '~layouts/Layout.astro';
+import { Languages } from '~types/enum';
+
+interface Props {
+  lang?: Languages;
+}
+
+const { lang = Languages.en } = Astro.props;
+---
+
+<Layout lang={lang}>
+  <Container>My blog (no SPA Layout)</Container>
+</Layout>

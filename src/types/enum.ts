@@ -1,6 +1,8 @@
 export enum Pages {
   home = 'home',
-  share = 'share'
+  about = 'about',
+  projects = 'projects',
+  blog = 'blog'
 }
 
 export enum Languages {
@@ -8,12 +10,7 @@ export enum Languages {
   fr = 'fr'
 }
 
-export enum Sections {
-  Loading = 'Loading',
-  Home = 'Home'
-}
-
-export enum SectionAnimStatus {
+export enum PageAnimStatus {
   None,
   In,
   InEnd,

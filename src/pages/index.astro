@@ -1,15 +1,10 @@
 ---
-import Layout from '~layouts/Layout.astro';
-import { Languages } from '~types/enum';
+import LayoutSPA from '~layouts/LayoutSPA.astro';
+import App from '~spa/index.tsx';
 
-import App from '~components/App';
-interface Props {
-  lang?: Languages;
-}
-
-const { lang = Languages.en } = Astro.props;
+const { pathname } = new URL(Astro.request.url);
 ---
 
-<Layout lang={lang}>
-  <App lang={lang} client:load />
-</Layout>
+<LayoutSPA>
+  <App pathname={pathname} client:load />
+</LayoutSPA>

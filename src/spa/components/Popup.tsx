@@ -18,7 +18,6 @@ export default function Popup({ isVisible, children, classes, popupClasses }: Pr
   return (
     <div
       aria-hidden={!isVisible}
-      open={isVisible}
       class={classNames(classes, 'fixed left-0 top-0 z-popup flex h-full w-full items-center justify-center', {
         '': isVisible,
         'pointer-events-none': !isVisible
@@ -26,7 +25,7 @@ export default function Popup({ isVisible, children, classes, popupClasses }: Pr
     >
       <div
         class={classNames(
-          '-z-1 bg-blackTransparent absolute left-0 top-0 h-full w-full transition-opacity duration-base',
+          '-z-1 absolute left-0 top-0 h-full w-full bg-blackTransparent transition-opacity duration-base',
           {
             'opacity-100': isVisible,
             'opacity-0': !isVisible
@@ -35,7 +34,7 @@ export default function Popup({ isVisible, children, classes, popupClasses }: Pr
       />
       <div
         class={classNames(
-          'py-12 flex max-w-lg flex-col items-center bg-white px-20 text-center text-black transition-[transform,opacity] duration-long',
+          'flex max-w-lg flex-col items-center bg-white px-20 py-12 text-center text-black transition-[transform,opacity] duration-long',
           popupClasses,
           {
             '-translate-y-10 opacity-100': isVisible,

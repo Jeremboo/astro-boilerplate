@@ -9,7 +9,7 @@ export default function Menu() {
   return (
     <div
       aria-hidden={!isMenuOpen}
-      class={classNames('z-menu absolute left-0 top-0 h-full w-full', {
+      class={classNames('absolute left-0 top-0 z-menu h-full w-full', {
         '': isMenuOpen,
         'pointer-events-none': !isMenuOpen
       })}
@@ -18,7 +18,7 @@ export default function Menu() {
         aria-hidden={true}
         onClick={() => $isMenuOpen.set(false)}
         class={classNames(
-          'bg-blackTransparent absolute -z-10 h-full w-full cursor-pointer transition-opacity duration-base',
+          'absolute -z-10 h-full w-full cursor-pointer bg-blackTransparent transition-opacity duration-base',
           {
             'opacity-1': isMenuOpen,
             'opacity-0': !isMenuOpen
@@ -32,6 +32,20 @@ export default function Menu() {
           '-translate-x-full': !isMenuOpen
         })}
       >
+        <div class="flex gap-2">
+          <a class="rounded-full bg-black px-4 py-2" href="/">
+            Home
+          </a>
+          <a class="rounded-full bg-black px-4 py-2" href="/about">
+            About
+          </a>
+          <a class="rounded-full bg-black px-4 py-2" href="/projects">
+            Projects
+          </a>
+          <a class="rounded-full bg-black px-4 py-2" href="/blog">
+            Blog
+          </a>
+        </div>
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere iste corrupti tempora! Minus nulla aliquid
           ullam pariatur voluptatibus laudantium deserunt molestias sapiente molestiae, numquam voluptas totam et,

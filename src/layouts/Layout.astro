@@ -1,14 +1,14 @@
 ---
+// import { ClientRouter } from 'astro:transitions';
 import 'styles/global.css';
 
 import ShareEn from '~assets/images/share-en.png';
 import ShareFr from '~assets/images/share-fr.png';
 
-import LandscapeLock from '~components/LandscapeLock';
-import Menu from '~components/Menu';
-import MenuButton from '~components/MenuButton';
-import ToggleMenu from '~components/ToggleMenu';
-import Webgl from '~components/Webgl';
+import LandscapeLock from '~spa/components/LandscapeLock';
+import Menu from '~spa/components/Menu';
+import MenuButton from '~spa/components/MenuButton';
+import ToggleMenu from '~spa/components/ToggleMenu';
 import { Languages } from '~types/enum';
 import type { LanguagesNames } from '~types/index';
 import { getI18nCopy } from '~utils/i18n';
@@ -16,10 +16,9 @@ import { getI18nCopy } from '~utils/i18n';
 
 interface Props {
   lang: Languages;
-  forceDebug?: boolean;
 }
 
-const { lang, forceDebug = false } = Astro.props;
+const { lang } = Astro.props;
 const {
   locale,
   meta: { title, description },
@@ -41,8 +40,6 @@ const languageNames = await languages.reduce(
 );
 
 const isDev = import.meta.env.DEV;
-
-// TODO 2023-11-19 jeremboo: Fix nested transition
 ---
 
 <!doctype html>
@@ -93,20 +90,14 @@ const isDev = import.meta.env.DEV;
         width="0"
         style="display:none;visibility:hidden"></iframe>
     </noscript> -->
-    <ToggleMenu lang={lang} languages={languageNames} client:load transition:persist />
-    <nav class="absolute left-0 top-0 flex w-full items-center justify-between">
+    <nav class="absolute left-0 top-0 flex h-14 w-full items-center justify-between bg-secondary">
       <MenuButton menuCopy={menu} backCopy={back} client:load />
+      <ToggleMenu classes="mr-4" lang={lang} languages={languageNames} client:load transition:persist />
     </nav>
-    <main class="size-full overflow-y-auto overflow-x-hidden">
-      <div class="relative size-full">
-        <div class="m-auto flex size-full max-w-[1279px] flex-col">
-          <!-- transition:animate={classicAnimationTransition(0.5, 0.2, 1)} -->
-          <slot />
-        </div>
-      </div>
-      <Menu client:load />
+    <Menu client:load />
+    <main class="size-full overflow-y-auto overflow-x-hidden pt-16">
+      <slot />
     </main>
-    <Webgl client:load transition:persist />
     <LandscapeLock client:load />
   </body>
 </html>

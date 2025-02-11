@@ -1,8 +1,8 @@
 import { useStore } from '@nanostores/preact';
 import classNames from 'classnames';
 
-import Button from '~components/Button';
-import SVGArrow from '~components/SVGArrow';
+import Button from '~spa/components/Button';
+import SVGArrow from '~spa/components/SVGArrow';
 import { $isMenuOpen, $isPopupOpen } from '~store/index';
 
 type Props = {
@@ -20,7 +20,7 @@ export default function MenuButton({ menuCopy, backCopy }: Props) {
         ariaHidden={isMenuOpen && isPopupOpen}
         isTransparent
         isTablable={!isMenuOpen}
-        classes={classNames('absolute top-1 left-5 w-36 h-12', {
+        classes={classNames('w-36 h-12', {
           'pointer-events-none opacity-0 delay-[0ms,0ms,0ms]': isMenuOpen,
           'delay-[0ms,0ms,200ms]': !isMenuOpen
         })}

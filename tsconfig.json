@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": ["dist", "scripts/templates/"],
   "compilerOptions": {
     "target": "es5",
     "jsx": "react-jsx",
@@ -10,6 +10,7 @@
     "types": ["vite-plugin-glsl/ext"],
     "lib": ["ES2021.String"],
     "paths": {
+      "~spa/*": ["spa/*"],
       "~assets/*": ["assets/*"],
       "~components/*": ["components/*"],
       "~data/*": ["data/*"],

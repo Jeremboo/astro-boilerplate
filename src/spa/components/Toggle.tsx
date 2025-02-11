@@ -43,7 +43,7 @@ export default function Toggle({
       <div class="absolute -left-5 top-1/2 -translate-y-1/2">{icon}</div>
       <div
         class={classNames(
-          'top-0.5 absolute h-3 w-3 rounded-full bg-background transition-[left,background] duration-[200ms,500ms]',
+          'top-0.5 absolute h-3 w-3 rounded-full bg-secondary transition-[left,background] duration-[200ms,500ms]',
           {
             'left-0.5': !isEnabled,
             '!left-[calc(100%-0.875rem)]': isEnabled
@@ -53,7 +53,7 @@ export default function Toggle({
       <p
         aria-hidden
         class={classNames(
-          'left-1.5 absolute top-1/2 -translate-y-1/2 whitespace-pre text-[10px] uppercase text-background opacity-100 transition-[color,opacity] duration-[500ms,200ms]',
+          'left-1.5 absolute top-1/2 -translate-y-1/2 whitespace-pre text-[10px] uppercase text-secondary opacity-100 transition-[color,opacity] duration-[500ms,200ms]',
           {
             '!opacity-0': !isEnabled
           }
@@ -64,7 +64,7 @@ export default function Toggle({
       <p
         aria-hidden
         class={classNames(
-          'text-xs right-1.5 absolute top-1/2 -translate-y-1/2 whitespace-pre text-[10px] uppercase text-background opacity-100 transition-[color,opacity] duration-[500ms,200ms]',
+          'text-xs right-1.5 absolute top-1/2 -translate-y-1/2 whitespace-pre text-[10px] uppercase text-secondary opacity-100 transition-[color,opacity] duration-[500ms,200ms]',
           {
             '!opacity-0': isEnabled
           }

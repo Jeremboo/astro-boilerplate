@@ -1,11 +1,11 @@
 import { useStore } from '@nanostores/preact';
+import SVGMotion from '~spa/components/SVGMotion';
+import SVGSound from '~spa/components/SVGSound';
+import SVGWeb from '~spa/components/SVGWeb';
 import { navigate } from 'astro:transitions/client';
 import classNames from 'classnames';
 import { useMemo, useState } from 'preact/hooks';
 
-import SVGMotion from '~components/SVGMotion';
-import SVGSound from '~components/SVGSound';
-import SVGWeb from '~components/SVGWeb';
 import useI18n from '~hooks/useI18n';
 import { $isMenuOpen, $isMotionActive, $isPopupOpen, $isSoundActive } from '~store/index';
 import { Languages } from '~types/enum';
@@ -52,7 +52,7 @@ export default function ToggleMenu({ lang, classes, isTablableForced = false }: 
   };
 
   return (
-    <div aria-hidden={!localIsTablable} class={classNames('fixed right-5 top-5 z-toggle flex items-center', classes)}>
+    <div aria-hidden={!localIsTablable} class={classNames('z-toggle flex items-center', classes)}>
       <div class="flex items-center">
         <Toggle
           label={$i18n?.a11y?.soundToggle}

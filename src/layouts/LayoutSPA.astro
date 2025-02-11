@@ -1,0 +1,15 @@
+---
+import Container from '~components/Container.astro';
+import Webgl from '~spa/components/Webgl';
+import { Languages } from '~types/enum';
+import Layout from './Layout.astro';
+
+const { lang = Languages.en } = Astro.props;
+---
+
+<Layout lang={lang}>
+  <Container>
+    <slot />
+  </Container>
+  <Webgl client:load transition:persist />
+</Layout>
