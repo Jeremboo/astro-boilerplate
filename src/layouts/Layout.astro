@@ -81,7 +81,7 @@ const isDev = import.meta.env.DEV;
     <!-- <ClientRouter /> -->
   </head>
   <body
-    class="transition-bg flex size-full flex-col items-center overflow-hidden bg-background text-white duration-base"
+    class=" bg-background duration-base flex size-full flex-col items-center overflow-hidden text-white"
   >
     <!-- <noscript>
       <iframe
@@ -90,12 +90,12 @@ const isDev = import.meta.env.DEV;
         width="0"
         style="display:none;visibility:hidden"></iframe>
     </noscript> -->
-    <nav class="absolute left-0 top-0 flex h-14 w-full items-center justify-between bg-secondary">
+    <nav class="bg-secondary absolute top-0 left-0 flex h-14 w-full items-center justify-between">
       <MenuButton menuCopy={menu} backCopy={back} client:load />
       <ToggleMenu classes="mr-4" lang={lang} languages={languageNames} client:load transition:persist />
     </nav>
     <Menu client:load />
-    <main class="size-full overflow-y-auto overflow-x-hidden pt-16">
+    <main class="size-full overflow-x-hidden overflow-y-auto pt-16">
       <slot />
     </main>
     <LandscapeLock client:load />

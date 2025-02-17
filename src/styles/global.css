@@ -1,7 +1,30 @@
-:root {
-  --primary-color: #ffffff;
-  --secondary-color: #000000;
-  --background-color: #c40023;
+@import 'tailwindcss';
+@config "../../tailwind.config.js";
+
+/*
+ * * *******************
+ * * TAILWIND CONFIG
+ * * *******************
+ */
+
+/* https://tailwindcss.com/docs/theme */
+@theme {
+  --spacing: 0.25rem;
+
+  --color-transparent: transparent;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-whiteTransparent: rgba(255, 255, 255, 0.4);
+  --color-blackTransparent: rgba(0, 0, 0, 0.4);
+  --color-primary: #ffffff;
+  --color-secondary: #000000;
+  --color-background: #c40023;
+
+  --font-sans: Cabin, CenturyGothic, AppleGothic, sans-serif;
+  --font-serif: Merriweather, serif;
+  --font-mono:
+    Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New',
+    monospace;
 }
 
 /*
@@ -24,7 +47,7 @@ body::before {
 /* Works on Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) transparent;
+  scrollbar-color: var(--color-primary) transparent;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -37,7 +60,7 @@ body::before {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   border-radius: 20px;
   border: 3px solid transparent;
 }
@@ -75,7 +98,7 @@ input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   margin-top: -7px;
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   width: 18px;
   height: 18px;
   border-radius: 10px;

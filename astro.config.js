@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
-import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
+import tailwindcss from '@tailwindcss/vite';
 import compress from 'astro-compress';
 import favicons from 'astro-favicons';
 import glsl from 'vite-plugin-glsl';
@@ -45,7 +45,7 @@ const config = {
     port: 3000
   },
   vite: {
-    plugins: [glsl(), hotReloadWebgl(), optimizeVideos()],
+    plugins: [tailwindcss(), glsl(), hotReloadWebgl(), optimizeVideos()],
     optimizeDeps: {
       exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util']
     }
@@ -64,7 +64,7 @@ const config = {
     locales: ['en', 'fr'],
     defaultLocale: 'en'
   },
-  integrations: [preact(), tailwind(), sitemap(), robotsTxt(), compress()]
+  integrations: [preact(), sitemap(), robotsTxt(), compress()]
 };
 
 /*
