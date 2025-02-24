@@ -1,24 +1,26 @@
-import Button from '~spa/components/Button';
+import Nav from '~spa/components/Nav';
+import Page from '~spa/components/Page';
+import { Pages } from '~types/enum';
 
 export default () => {
+  const animateIn = () =>
+    new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 0);
+    });
+
+  const animateOut = () =>
+    new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+
   return (
-    <div>
-      <h2>ABOUT</h2>
-      <ul>
-        <li>
-          <a href="/">HOME</a>
-        </li>
-        <li>
-          <a href="/projects">PROJECTS</a>
-        </li>
-        <li>
-          <a href="/blog">BLOG</a>
-        </li>
-        <li>
-          <a href="/about">ABOUT</a>
-        </li>
-      </ul>
-      <Button onClick={() => {}}>Click</Button>
-    </div>
+    <Page pageId={Pages.about} animateIn={animateIn} animateOut={animateOut}>
+      <h2 class="text-2xl">ABOUT</h2>
+      <Nav />
+    </Page>
   );
 };

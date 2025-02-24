@@ -8,15 +8,15 @@ export type SimplifiedTweenVars = { duration?: number; ease?: string };
  * * *******************
  */
 
-export type SectionProps<TSection = Sections, T = {}> = T & {
-  sectionName: TSection;
+export type PageProps<TPage = Pages, T = {}> = T & {
+  sectionName: TPage;
 };
 
-export type SectionListProps<T = {}> = {
-  component: (props: SectionProps<Sections, T>) => JSX.Element;
-  props: SectionProps<Sections, T>;
+export type PageListProps<T = {}> = {
+  component: (props: PageProps<Pages, T>) => JSX.Element;
+  props: PageProps<Pages, T>;
 };
 
-export type SectionList = {
-  [key in Sections]: SectionListProps;
+export type PageList = {
+  [key in Pages]: PageListProps;
 };

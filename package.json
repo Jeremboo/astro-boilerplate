@@ -31,7 +31,7 @@
     "nanostores": "^0.11.3",
     "ogl": "^1.0.11",
     "preact": "^10.25.4",
-    "preact-iso": "^2.9.0",
+    "preact-iso": "github:Jeremboo/preact-iso#main",
     "react-device-detect": "^2.2.3",
     "tweakpane": "^4.0.5"
   },

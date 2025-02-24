@@ -1,5 +1,5 @@
 import type { I18n } from '~assets/i18n/i18n';
-import { PAGES_URL } from '~data/index';
+import { PAGES } from '~data/routing';
 import type { Languages } from '~types/enum';
 import { Pages } from '~types/enum';
 
@@ -9,7 +9,8 @@ export async function getI18nCopy(lang: Languages) {
 }
 
 export function getI18nUrl(lang: Languages, page = Pages.home) {
-  return PAGES_URL[lang][page];
+  return PAGES[page];
+  // return PAGES[lang][page];
 }
 
 // export function getLangFromUrl(url: URL) {

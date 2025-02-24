@@ -7,7 +7,7 @@ import { Pages } from '~types/enum';
 //   [Languages.fr] : {},
 // }
 
-export const PAGES_SPA = {
+export const PAGES_SPA: { [key in Pages]?: { path: string, component: () => Promise<any> }} = {
   [Pages.home]: {
     path: `${import.meta.env.BASE_URL}`,
     component: () => import('~spa/pages/index')
@@ -29,3 +29,14 @@ export const PAGES_STATIC = {
 };
 
 export const PAGES = { ...PAGES_SPA, ...PAGES_STATIC };
+
+
+export const getPageIdFromPath = (path: string) => {
+  return (Object.keys(PAGES) as Pages[]).reduce((acc, key) => {
+    const pageProps = PAGES[key];
+    if (pageProps && pageProps.path === path) {
+      acc = key as Pages;
+    }
+    return acc;
+  }, undefined as (Pages | undefined));
+}

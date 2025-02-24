@@ -2,6 +2,7 @@ import { useStore } from '@nanostores/preact';
 import classNames from 'classnames';
 
 import { $isMenuOpen } from '~store/index';
+import Nav from './Nav';
 
 export default function Menu() {
   const isMenuOpen = useStore($isMenuOpen);
@@ -32,20 +33,7 @@ export default function Menu() {
           '-translate-x-full': !isMenuOpen
         })}
       >
-        <div class="flex gap-2">
-          <a class="rounded-full bg-black px-4 py-2" href="/">
-            Home
-          </a>
-          <a class="rounded-full bg-black px-4 py-2" href="/about">
-            About
-          </a>
-          <a class="rounded-full bg-black px-4 py-2" href="/projects">
-            Projects
-          </a>
-          <a class="rounded-full bg-black px-4 py-2" href="/blog">
-            Blog
-          </a>
-        </div>
+        <Nav />
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere iste corrupti tempora! Minus nulla aliquid
           ullam pariatur voluptatibus laudantium deserunt molestias sapiente molestiae, numquam voluptas totam et,
