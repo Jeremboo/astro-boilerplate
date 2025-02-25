@@ -8,4 +8,4 @@ import { atom } from 'nanostores';
  */
 
 // TODO 2023-12-04 jeremboo: HRM error here. Check https://github.com/vitejs/vite/issues/3301 to see how to solve it
-export const $currentRouteAnimated = atom<string>('/');
+export const $currentRouteVisible = atom<string>('/');

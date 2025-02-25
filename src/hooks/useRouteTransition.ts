@@ -2,8 +2,9 @@ import { useStore } from '@nanostores/preact';
 import classNames from 'classnames';
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import { useLocation, useRoute } from 'wouter-preact';
+import { isInSPAScope } from '~data/routing';
 
-import { $currentRouteAnimated } from '~store/routing';
+import { $currentRouteVisible } from '~store/routing';
 
 import { PageAnimStatus } from '~types/enum';
 
@@ -25,7 +26,7 @@ export default function useRouteTransition({
 }: RouteTransitionProps) {
   const [match] = useRoute(url);
   const [location] = useLocation();
-  const currentPath = useStore($currentRouteAnimated);
+  const currentPath = useStore($currentRouteVisible);
   const [animateStatus, setAnimateStatus] = useState(PageAnimStatus.OutEnd);
 
   const handleAnimateIn = useCallback(async () => {
@@ -50,7 +51,12 @@ export default function useRouteTransition({
 
   useEffect(() => {
     if (animateStatus === PageAnimStatus.OutEnd && !match) {
-      $currentRouteAnimated.set(location);
+      if (isInSPAScope(location)) {
+        $currentRouteVisible.set(location);
+      } else {
+        // Force refresh the navigator since the page in out for SPA scope
+        document.location.href = location
+      }
     }
   }, [animateStatus]);
 

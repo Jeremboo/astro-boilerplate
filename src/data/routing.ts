@@ -53,4 +53,4 @@ export const getPathFromRouteKey = (route: RouteKeys) => ROUTES[route].path;
 // Check if the given path are in the SPA scope
 const escapedPaths = Object.values(ROUTES_SPA).map(({ path }) => path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
 const spaScope = new RegExp(`^(${escapedPaths.join('|')})$`);
-export const isInScope = (href: string) => spaScope.test(href);
+export const isInSPAScope = (href: string) => spaScope.test(href);
