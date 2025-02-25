@@ -1,57 +1,36 @@
-import { ErrorBoundary, lazy, LocationProvider, Route, Router } from 'preact-iso';
-import { locationStub } from 'preact-iso/prerender';
+import { Router } from 'wouter-preact';
 
-import { getPageIdFromPath, PAGES, PAGES_SPA } from '~data/routing';
 
 import PopupError from './components/PopupError';
-import { $pageCurrent, $pageCurrentLoaded, $pageNext } from '~store/pages';
-import { useStore } from '@nanostores/preact';
-import { useMemo } from 'preact/hooks';
+import { ROUTES_SPA } from '~data/routing';
 
-const routes = Object.values(PAGES_SPA).map(({ path, component }) => {
-  return <Route key={path} path={path} component={lazy(component)} />;
-});
-
-const escapedPaths = Object.values(PAGES_SPA).map(({ path }) => path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-const spaScope = new RegExp(`^(${escapedPaths.join('|')})$`);
+const routes = Object.values(ROUTES_SPA).map(({ Component }) => {
+  return <Component />;
+})
 
 export default ({ pathname }: { pathname: string }) => {
-  if (import.meta.env.SSR) {
-    locationStub(pathname);
-  }
-
-  const pageCurrent = useStore($pageCurrent);
-
-  const url = useMemo(() => {
-    return PAGES[pageCurrent]?.path;
-  }, [pageCurrent]);
-
-  return (
-    <>
-      <LocationProvider
-        url={url}
-        scope={spaScope}
-        onPopStateChange={(_url) => {
-          const pageId = getPageIdFromPath(_url)
-          if (pageId != undefined) {
-            $pageNext.set(pageId);
-          } else {
-            console.log('ERROR : unknown URL, hard refresh required');
-          }
-        }}
-      >
-        <ErrorBoundary>
-          <Router
-            onRouteChange={() => {
-              $pageCurrentLoaded.set(true);
-            }}
-            onLoadEnd={() => {
-              $pageCurrentLoaded.set(true);
-            }}
-          >{routes}</Router>
-        </ErrorBoundary>
-      </LocationProvider>
-      <PopupError />
-    </>
-  );
+  // if (import.meta.env.SSR) {
+  //   locationStub(pathname);
+  // }
+  // return (
+  //   <>
+  //     <LocationProvider scope={spaScope}>
+  //       <ErrorBoundary>
+  //           <Router
+  //             onRouteChange={() => {
+  //               $pageCurrentLoaded.set(true);
+  //             }}
+  //             onLoadEnd={() => {
+  //               $pageCurrentLoaded.set(true);
+  //             }}
+  //             >{routes}</Router>
+  //       </ErrorBoundary>
+  //     </LocationProvider>
+  //     <PopupError />
+  //   </>
+  // );
+  return <>
+    <Router ssrPath={pathname}>{routes}</Router>
+    <PopupError />
+  </>
 };

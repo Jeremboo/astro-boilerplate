@@ -1,6 +1,6 @@
+import { getPathFromRouteKey } from '~data/routing';
 import Nav from '~spa/components/Nav';
-import Page from '~spa/components/Page';
-import { Pages } from '~types/enum';
+import Page from '~spa/components/RouteAnimated';
 
 export default () => {
   const animateIn = () =>
@@ -18,7 +18,7 @@ export default () => {
     });
 
   return (
-    <Page pageId={Pages.about} animateIn={animateIn} animateOut={animateOut}>
+    <Page url={getPathFromRouteKey('about')} animateIn={animateIn} animateOut={animateOut}>
       <h2 class="text-2xl">ABOUT</h2>
       <Nav />
     </Page>

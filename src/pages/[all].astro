@@ -1,12 +1,12 @@
 ---
 import type { GetStaticPaths, GetStaticPathsResult } from 'astro';
 
-import { PAGES_SPA } from '~data/routing';
+import { ROUTES_SPA } from '~data/routing';
 import Index from './index.astro';
 
-// Array of all pages who will be in my SPA
+// Array of all ROUTES who will be in my SPA
 export const getStaticPaths = (() =>
-  Object.values(PAGES_SPA).reduce((acc, { path }) => {
+  Object.values(ROUTES_SPA).reduce((acc, { path }) => {
     if (path != import.meta.env.BASE_URL) {
       acc.push({ params: { all: path } });
     }

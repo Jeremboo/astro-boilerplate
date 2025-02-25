@@ -31,9 +31,9 @@
     "nanostores": "^0.11.3",
     "ogl": "^1.0.11",
     "preact": "^10.25.4",
-    "preact-iso": "github:Jeremboo/preact-iso#main",
     "react-device-detect": "^2.2.3",
-    "tweakpane": "^4.0.5"
+    "tweakpane": "^4.0.5",
+    "wouter-preact": "^3.6.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

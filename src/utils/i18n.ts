@@ -1,16 +1,14 @@
 import type { I18n } from '~assets/i18n/i18n';
-import { PAGES } from '~data/routing';
-import type { Languages } from '~types/enum';
-import { Pages } from '~types/enum';
+import { ROUTES, type RouteKeys } from '~data/routing';
+import { type Languages } from '~types/enum';
 
 export async function getI18nCopy(lang: Languages) {
   const copy = await import(`../assets/i18n/${lang}.json`);
   return copy as I18n;
 }
 
-export function getI18nUrl(lang: Languages, page = Pages.home) {
-  return PAGES[page];
-  // return PAGES[lang][page];
+export function getI18nUrl(lang: Languages, routeKey: RouteKeys = 'home') {
+  return ROUTES[routeKey].path;
 }
 
 // export function getLangFromUrl(url: URL) {
