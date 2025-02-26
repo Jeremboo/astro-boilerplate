@@ -4,7 +4,6 @@ import { atom } from 'nanostores';
 export const $isSoundActive = atom(true);
 export const $isMotionActive = atom(true);
 
-export const $isMenuOpen = atom(false);
 
-// If one popup is open
-export const $isPopupOpen = atom(true);
+// TODO 2025-02-26 jeremboo: Should not be necessary
+export const $isMenuOpen = atom(false);

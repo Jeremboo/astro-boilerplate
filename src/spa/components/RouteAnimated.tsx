@@ -1,6 +1,6 @@
 import classNames from "classnames"
 import type { ComponentChildren } from "preact";
-import useRouteTransition, { type RouteTransitionProps } from "~hooks/useRouteTransition";
+import useRouteTransition, { type RouteTransitionProps } from "~spa/hooks/useRouteTransition";
 
 type Props = RouteTransitionProps & {
   children: ComponentChildren,

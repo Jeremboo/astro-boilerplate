@@ -3,13 +3,19 @@ import classNames from 'classnames';
 
 import { $isMenuOpen } from '~store/index';
 import Nav from './Nav';
+import useFocusTrap from '~spa/hooks/useFocusTrap';
+import { useRef } from 'preact/hooks';
 
 export default function Menu() {
   const isMenuOpen = useStore($isMenuOpen);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap({ wrapperRef, isVisible: isMenuOpen })
+
   return (
     <div
-      aria-hidden={!isMenuOpen}
+      ref={wrapperRef}
       class={classNames('absolute left-0 top-0 z-menu h-full w-full', {
         '': isMenuOpen,
         'pointer-events-none': !isMenuOpen
@@ -21,7 +27,7 @@ export default function Menu() {
         class={classNames(
           'absolute -z-10 h-full w-full cursor-pointer bg-blackTransparent transition-opacity duration-base',
           {
-            'opacity-1': isMenuOpen,
+            'opacity-100': isMenuOpen,
             'opacity-0': !isMenuOpen
           }
         )}

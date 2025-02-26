@@ -1,9 +1,6 @@
-import { useStore } from '@nanostores/preact';
 import classNames from 'classnames';
 import type { ComponentChildren } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
-
-import { $isMenuOpen, $isPopupOpen } from '~store/index';
 
 type Props = {
   id?: string;
@@ -13,10 +10,9 @@ type Props = {
   isSelected?: boolean;
   isDisabled?: boolean;
   isActivatable?: boolean;
-  isInPopup?: boolean;
   isTablable?: boolean;
   classes?: string;
-  ariaHidden?: boolean;
+  inert?: boolean;
   onClick: () => void;
   onMouseEnter?: () => void;
   onMouseOut?: () => void;
@@ -34,18 +30,14 @@ export default function Button({
   isSelected,
   isDisabled,
   isActivatable,
-  isInPopup,
-  isTablable = true,
   classes,
   children,
-  ariaHidden = false,
+  ariaHidden,
+  inert,
   onClick,
   onMouseEnter,
   onMouseOut
 }: Props) {
-  const isMenuOpen = useStore($isMenuOpen);
-  const isPopupOpen = useStore($isPopupOpen);
-
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => {
     if (isActivatable) {
@@ -67,10 +59,6 @@ export default function Button({
   }, [isActive, isActivatable]);
 
   const isFocus = useMemo(() => isSelected || isActive, [isSelected, isActive]);
-  const localIsTablable = useMemo(
-    () => !isDisabled && isTablable && (isInPopup || (!isMenuOpen && !isPopupOpen)),
-    [isDisabled, isPopupOpen, isInPopup, isTablable, isMenuOpen]
-  );
 
   return (
     <button
@@ -79,8 +67,7 @@ export default function Button({
       onClick={handleClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseOut}
-      tabIndex={localIsTablable ? undefined : -1}
-      aria-hidden={!isTablable || ariaHidden}
+      inert={inert}
       class={classNames(DEFAULT_BUTTON_CLASSES, classes, {
         // Default
         'hover:bg-blackTransparent bg-black text-white active:bg-white active:text-black': !isTransparent && !isFocus,

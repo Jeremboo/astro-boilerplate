@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import type { ComponentChildren } from 'preact';
-import { useEffect } from 'preact/hooks';
-
-import { $isPopupOpen } from '~store/index';
+import { useRef } from 'preact/hooks';
+import useFocusTrap from '~spa/hooks/useFocusTrap';
 
 type Props = {
   classes?: string;
@@ -12,12 +11,15 @@ type Props = {
 };
 
 export default function Popup({ isVisible, children, classes, popupClasses }: Props) {
-  useEffect(() => {
-    $isPopupOpen.set(isVisible);
-  }, [isVisible]);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap({ wrapperRef, isVisible })
+
   return (
     <div
-      aria-hidden={!isVisible}
+      ref={wrapperRef}
+      inert={!isVisible}
       class={classNames(classes, 'fixed left-0 top-0 z-popup flex h-full w-full items-center justify-center', {
         '': isVisible,
         'pointer-events-none': !isVisible
@@ -34,7 +36,7 @@ export default function Popup({ isVisible, children, classes, popupClasses }: Pr
       />
       <div
         class={classNames(
-          'flex max-w-lg flex-col items-center bg-white px-20 py-12 text-center text-black transition-[transform,opacity] duration-long',
+          'flex max-w-lg flex-col items-center bg-white px-20 py-12 text-center text-black transition-[translate,opacity] duration-long',
           popupClasses,
           {
             '-translate-y-10 opacity-100': isVisible,

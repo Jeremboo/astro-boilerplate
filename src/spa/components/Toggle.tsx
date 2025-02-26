@@ -7,7 +7,6 @@ type Props = {
   classes?: string;
   on?: string;
   off?: string;
-  isTablable?: boolean;
   icon: ComponentChildren;
   isEnabled: boolean;
   handleToggleClick: () => void;
@@ -19,7 +18,6 @@ export default function Toggle({
   icon,
   classes,
   isEnabled,
-  isTablable = true,
   handleToggleClick,
   on = 'ON',
   off = 'OFF'
@@ -37,7 +35,6 @@ export default function Toggle({
           '': isEnabled
         }
       )}
-      tabIndex={isTablable ? undefined : -1}
       onClick={handleToggleClick}
     >
       <div class="absolute -left-5 top-1/2 -translate-y-1/2">{icon}</div>

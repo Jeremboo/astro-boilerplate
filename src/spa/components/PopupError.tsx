@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/preact';
 import { useCallback } from 'preact/hooks';
 
-import useI18n from '~hooks/useI18n';
+import useI18n from '~spa/hooks/useI18n';
 import { $error, hideErrorMessage } from '~store/error';
 
 import Button from './Button';
@@ -18,7 +18,7 @@ export default function PopupError() {
   return (
     <Popup classes="z-error" isVisible={isErrorMessageVisible}>
       <p>{errorMessage}</p>
-      <Button isActivatable isInPopup isTablable={isErrorMessageVisible} onClick={handleBack}>
+      <Button isActivatable onClick={handleBack}>
         {$i18n?.cta?.back}
       </Button>
     </Popup>

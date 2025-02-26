@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import Button from '~spa/components/Button';
 import SVGArrow from '~spa/components/SVGArrow';
-import { $isMenuOpen, $isPopupOpen } from '~store/index';
+import { $isMenuOpen } from '~store/index';
 
 type Props = {
   menuCopy: string;
@@ -12,14 +12,12 @@ type Props = {
 
 export default function MenuButton({ menuCopy, backCopy }: Props) {
   const isMenuOpen = useStore($isMenuOpen);
-  const isPopupOpen = useStore($isPopupOpen);
 
   return (
     <div class="relative z-nav">
       <Button
-        ariaHidden={isMenuOpen && isPopupOpen}
+        inert={isMenuOpen}
         isTransparent
-        isTablable={!isMenuOpen}
         classes={classNames('w-36 h-12', {
           'pointer-events-none opacity-0 delay-[0ms,0ms,0ms]': isMenuOpen,
           'delay-[0ms,0ms,200ms]': !isMenuOpen
@@ -29,10 +27,8 @@ export default function MenuButton({ menuCopy, backCopy }: Props) {
         <span class="whitespace-nowrap">{menuCopy}</span>
       </Button>
       <Button
-        ariaHidden={!isMenuOpen && isPopupOpen}
+        inert={!isMenuOpen}
         isTransparent
-        isTablable={isMenuOpen}
-        isInPopup={isMenuOpen}
         classes={classNames('absolute top-1 left-5 w-36 h-12', {
           'pointer-events-none opacity-0 delay-[0ms,0ms,0ms]': !isMenuOpen,
           'delay-[0ms,0ms,200ms]': isMenuOpen
