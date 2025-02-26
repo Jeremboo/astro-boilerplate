@@ -115,6 +115,7 @@ input[type='range']::-webkit-slider-thumb {
   src: url('/fonts/cabin-regular.woff2');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -122,6 +123,7 @@ input[type='range']::-webkit-slider-thumb {
   src: url('/fonts/cabin-medium.woff2');
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 /* @font-face {
@@ -129,6 +131,7 @@ input[type='range']::-webkit-slider-thumb {
   src: url('fonts/cabin-semibold.woff2');
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 } */
 
 @font-face {
@@ -136,6 +139,7 @@ input[type='range']::-webkit-slider-thumb {
   src: url('/fonts/cabin-bold.woff2');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
 /*
  * * *******************
