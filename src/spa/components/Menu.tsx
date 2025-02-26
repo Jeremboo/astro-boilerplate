@@ -4,14 +4,25 @@ import classNames from 'classnames';
 import { $isMenuOpen } from '~store/index';
 import Nav from './Nav';
 import useFocusTrap from '~spa/hooks/useFocusTrap';
-import { useRef } from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
+import { useLocation } from 'wouter-preact';
 
 export default function Menu() {
   const isMenuOpen = useStore($isMenuOpen);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+  useFocusTrap({ wrapperRef, isVisible: isMenuOpen });
 
-  useFocusTrap({ wrapperRef, isVisible: isMenuOpen })
+  // Close the menu when the location changes
+  if (!import.meta.env.SSR) {
+    const [location] = useLocation();
+    const cachedLocation = useRef(location);
+    useEffect(() => {
+      if (isMenuOpen && cachedLocation.current !== location) {
+        $isMenuOpen.set(false);
+      }
+    }, [location]);
+  }
 
   return (
     <div
