@@ -1,0 +1,19 @@
+---
+import Container from '~components/Container.astro';
+import Layout from '~layouts/Layout.astro';
+import LocationListener from '~spa/components/LocationListener';
+import { Languages } from '~types/enum';
+
+interface Props {
+  lang?: Languages;
+}
+
+const { lang = Languages.en } = Astro.props;
+---
+
+<Layout lang={lang}>
+  <LocationListener client:load/>
+  <Container>
+    <slot />
+  </Container>
+</Layout>

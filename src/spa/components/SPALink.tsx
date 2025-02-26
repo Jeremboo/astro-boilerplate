@@ -1,6 +1,5 @@
 import type { ComponentChildren } from "preact";
 import { Link } from "wouter-preact";
-import { isInSPAScope } from "~data/routing";
 
 type Props = {
   href: string;

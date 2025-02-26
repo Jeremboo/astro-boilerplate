@@ -1,6 +1,5 @@
 ---
-import Container from '~components/Container.astro';
-import Layout from '~layouts/Layout.astro';
+import LayoutStatic from '~layouts/LayoutStatic.astro';
 import Nav from '~spa/components/Nav';
 import { Languages } from '~types/enum';
 
@@ -11,9 +10,7 @@ interface Props {
 const { lang = Languages.en } = Astro.props;
 ---
 
-<Layout lang={lang}>
-  <Container>
-    <h2>Blog</h2>
-    <Nav client:load />
-  </Container>
-</Layout>
+<LayoutStatic lang={lang}>
+  <h2>Blog</h2>
+  <Nav client:load />
+</LayoutStatic>
