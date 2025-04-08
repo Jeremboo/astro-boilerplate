@@ -4,10 +4,10 @@ import { isMobile } from 'react-device-detect';
 
 import { CAMERA_POSITION_Z } from '~data/webgl';
 import raf from '~utils/raf';
-import Cube from '~webgl/components/cube';
-import Stars from '~webgl/components/stars';
+import Cube from '~webgl-oglcomponents/cube';
+import Stars from '~webgl-oglcomponents/stars';
 
-import CameraMouseControl from './utils/CameraMouseControl';
+import CameraMouseControl from './utils/CameraMouseControl.ts';
 
 export default class Webgl {
   renderer: Renderer;

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'preact/hooks';
 
 import { $isMotionActive } from '~store/index';
 import { $windowSize } from '~store/windowSize';
-import WebglApp from '~webgl/index';
+import WebglApp from '~webgl-ogl/index';
 
 export default function Webgl() {
   const windowSize = useStore($windowSize);

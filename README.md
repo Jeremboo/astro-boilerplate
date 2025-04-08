@@ -30,7 +30,7 @@ Dev tools :
 │   │   └── Layout.astro
 │   ├── pages/
 │   │   └── index.astro
-│   └── webgl/
+│   └── webgl-ogl
 │       └── index.ts
 └── package.json
 ```

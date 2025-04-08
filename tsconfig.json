@@ -20,7 +20,7 @@
       "~styles/*": ["styles/*"],
       "~types/*": ["types/*"],
       "~utils/*": ["utils/*"],
-      "~webgl/*": ["webgl/*"]
+      "~webgl-ogl/*": ["webgl-ogl*"]
     }
   }
 }
