@@ -63,27 +63,45 @@ All commands are run from the root of the project, from a terminal:
 - [default-passive-events](https://www.npmjs.com/package/default-passive-events) :
 - [js-cookie](https://github.com/js-cookie/js-cookie#readme) : A simple, lightweight JavaScript API for handling cookies
 - [nanoid](https://www.npmjs.com/package/nanoid) : Generate unique ID (+130bytes)
-- [Astro-imagetools](https://astro-imagetools-docs.vercel.app/en/components/Img): I removed it because it wasn't well maintained.
+- [Astro-imagetools](https://astro-imagetools-docs.vercel.spa/en/components/Img): I removed it because it wasn't well maintained.
 - Use [Sharp](https://www.npmjs.com/package/sharp) if Astro-compress is not good : Node.js module to convert large images in common formats to smaller, web-friendly JPEG, PNG, WebP, GIF and AVIF images of varying dimensions. If Astro-imagetools or Astro-compress isn't good. See: https://docs.astro.build/en/reference/image-service-reference/
-- [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) instead of [Nanostores](https://github.com/nanostores/nanostores) ? Or @preact/signals (but it seems to be buggy with Astro).
+- [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction) instead of [Nanostores](https://github.com/nanostores/nanostores) for bigger state management system
+- [WebVitals](https://www.npmjs.com/package/web-vitals)
+- [nanostores/persists]() to install to save values in the local storage
 
 ## Inspiration
 
 - https://github.com/ixartz/Astro-boilerplate/tree/main
 - https://github.com/Experience-Monks/nextjs-boilerplate/tree/main
+- https://github.com/lilnasy/react-router-astro
 
 ## Troubleshooting
 
-- The transition between pages with a canvas in the background looks really off. Looks like there is 2 canvases at the same time instead of one.
-- The nested transitions aren't working properly
-- The HMR isn't working into the webgl folder. I had to create a custom vite.js plugin to refresh the entire page
+## Best Practices
+
+- Nanostore: It is better to not use atomicState if we have to update multiple states at the same time. If it's the case, they should be mapped together
 
 ## TODO
 
-- [astro-i18n](https://github.com/Alexandre-Fernandez/astro-i18n/tree/main): Implement it
+- Persistent data (nanostore persist)
+- make sure all files are compressed on build time
+- Clear package.json
+- Animation transition between Static & SPA pages and Static pages (ViewTransition)
+- wouter with localization : https://github.com/molefrog/wultra/blob/main/src/components/RouteWithLocale.tsx
+- fix pas d'import cleaning c'est pas normal
+- preload the font into the <head> to avoid flickering on page transition
+- meta data per page
+- menu in one component
+
+- Animation for webgl
 - Ogl particles : https://github.com/oframe/ogl/blob/master/examples/frustum-culling.html
 - Ogl post processing : https://github.com/oframe/ogl/blob/master/examples/post-bloom.html
-- Fix nested transition (https://www.youtube.com/watch?v=E749WFtPojg)
-- Add Tweakpane (or lil-gui)
-- Open an issue with the transition persist
-- https://www.npmjs.com/package/web-vitals
+
+
+# DONE
+
+- Animation transition for SPA pages
+  - https://github.com/preactjs/preact/issues/92#issuecomment-236365058
+  - https://stackoverflow.com/questions/64402930/how-can-i-create-a-page-transition-with-preact
+- wouter animate out before moving out the SPA
+- Fix aria-hidden error messages about focus (check aria-modal ?)
