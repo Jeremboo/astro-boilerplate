@@ -4,10 +4,11 @@ import { isMobile } from 'react-device-detect';
 
 import { CAMERA_POSITION_Z } from '~data/webgl';
 import raf from '~utils/raf';
-import Cube from '~webgl-oglcomponents/cube';
-import Stars from '~webgl-oglcomponents/stars';
+import Cube from '~webgl-ogl/components/cube';
+import Stars from '~webgl-ogl/components/stars';
 
 import CameraMouseControl from './utils/CameraMouseControl.ts';
+import { DEBUG_MODE } from '~data/index.ts';
 
 export default class Webgl {
   renderer: Renderer;
@@ -48,7 +49,7 @@ export default class Webgl {
     raf.add(this.update);
 
     // TODO 2024-01-07 jeremboo: Put this somewhere else
-    if (import.meta.env.DEV) {
+    if (DEBUG_MODE) {
       import(`../editor/index.ts`).then(({ bindWebgl }) => {
         bindWebgl(this);
       });

@@ -4,7 +4,9 @@ import { useEffect, useRef } from 'preact/hooks';
 
 import { $isMotionActive } from '~store/index';
 import { $windowSize } from '~store/windowSize';
-import WebglApp from '~webgl-ogl/index';
+import raf from '~utils/raf';
+// import WebglApp from '~webgl-ogl/index';
+import WebglApp from '~webgl/index';
 
 export default function Webgl() {
   const windowSize = useStore($windowSize);
@@ -22,7 +24,15 @@ export default function Webgl() {
   useEffect(() => {
     if (canvasRef.current && webglRef.current == null) {
       webglRef.current = new WebglApp(canvasRef.current);
-      webglRef.current?.resize(windowSize.width, windowSize.height);
+      webglRef.current.resize(windowSize.width, windowSize.height);
+      webglRef.current.load().then(() => {
+        if (isMotionActive) {
+          webglRef.current?.play();
+          raf.onFrame();
+        }
+      }).catch((err) => {
+        console.error('Error loading WebGL app:', err);
+      });
     }
 
     return () => {
@@ -31,7 +41,12 @@ export default function Webgl() {
   }, []);
 
   useEffect(() => {
-    // TODO 2024-01-11 jeremboo: Stop the webgl
+    if (!webglRef.current || !webglRef.current?.isLoaded()) return;
+    if (isMotionActive) {
+      webglRef.current?.play();
+    } else {
+      webglRef.current?.pause();
+    }
   }, [isMotionActive]);
 
   return (

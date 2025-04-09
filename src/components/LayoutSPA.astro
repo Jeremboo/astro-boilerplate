@@ -11,5 +11,5 @@ const { lang = Languages.en } = Astro.props;
   <Container>
     <slot />
   </Container>
-  <Webgl client:load transition:persist />
+  <Webgl client:only transition:persist />
 </Layout>
