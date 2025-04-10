@@ -20,3 +20,7 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# assets
+assets-raw/
+src/assets/3d/

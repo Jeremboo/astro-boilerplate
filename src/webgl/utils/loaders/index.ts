@@ -1,4 +1,5 @@
 import type { Audio, AudioListener, CompressedTexture, Group, Loader, Texture } from "three";
+import type { GLTF } from "three/examples/jsm/Addons.js";
 
 export enum LoaderType {
   audio = 'audio',
@@ -10,7 +11,7 @@ export enum LoaderType {
 
 export type LoaderToDataMap = {
   [LoaderType.audio]: Audio;
-  [LoaderType.gltf]: Group;
+  [LoaderType.gltf]: GLTF;
   [LoaderType.image]: HTMLImageElement;
   [LoaderType.ktx2Texture]: CompressedTexture;
   [LoaderType.texture]: Texture;

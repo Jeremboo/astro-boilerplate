@@ -4,7 +4,7 @@ import type { AssetProps } from "~webgl/managers/assetManager";
 export default [
   {
     id: 'mainRoom',
-    src: '/assets/3d/mainRoom.glb',
+    src: 'src/assets/3d/mainRoom.glb',
     type: 'gltf',
   }
 

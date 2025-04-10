@@ -2,11 +2,11 @@ import type BaseScene from "../scenes/BaseScene";
 import type { WebGLRenderer } from "three";
 
 export enum Scenes {
-  Main
+  Main = 'MainScene'
 }
 
-const SCENES: { [key in Scenes]: { path: string, props: {}}} = {
-  [Scenes.Main]: { path: '../scenes/MainScene/index.ts', props: {}}
+const SCENES: { [key in Scenes]: { props: {}}} = {
+  [Scenes.Main]: { props: {} }
 }
 
 export default class SceneManager {
@@ -22,8 +22,9 @@ export default class SceneManager {
   async loadScene(sceneId: Scenes) {
     let scene = this.scenes[sceneId] ?? undefined;
     if (scene === undefined) {
-      const { path, props } = SCENES[sceneId];
-      const cls = (await import(path))?.default;
+      const { props } = SCENES[sceneId];
+      // https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
+      const cls = (await import(`../scenes/${sceneId}/index.ts`))?.default;
       if (cls === undefined) {
         throw new Error(`Scene ${sceneId} not found`);
       }

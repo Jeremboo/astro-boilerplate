@@ -10,7 +10,7 @@ class RAF {
 
   onFrame = () => {
     const now = Date.now();
-    const delta = now - this.elapsed;
+    const delta = (now - this.elapsed) * 0.001;
     this.elapsed = now;
     let i = this.count;
     while (--i >= 0) {

@@ -1,5 +1,4 @@
-import type { Group } from 'three';
-import type { KTX2Loader } from 'three/examples/jsm/Addons.js';
+import type { GLTF, KTX2Loader } from 'three/examples/jsm/Addons.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 import { load } from '.';
@@ -27,5 +26,5 @@ export function setKtx2Loader(ktx2Loader: KTX2Loader) {
 }
 
 export default async function loadGLTF(src: string, props = {}, onProgress?: () => void) {
-  return await load<Group>(gltfLoader, src, onProgress);
+  return await load<GLTF>(gltfLoader, src, onProgress);
 }

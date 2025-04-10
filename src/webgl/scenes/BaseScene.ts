@@ -42,8 +42,8 @@ export default class BaseScene {
     preloadGpu(renderer, this.scene, this.camera);
   }
 
-  async load(onProgress?: () => void) {
-    if (this.isInit || (assetManager.assets[this.id] !== undefined && !this.assets.length)) {
+  private async load(onProgress?: () => void) {
+    if (assetManager.assets[this.id] !== undefined && !this.assets.length) {
       return;
     }
     return await assetManager.load(this.assets, this.id, onProgress);
