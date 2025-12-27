@@ -3,7 +3,7 @@ import { Camera, Renderer, Transform } from 'ogl';
 import { isMobile } from 'react-device-detect';
 
 import { CAMERA_POSITION_Z } from '~data/webgl';
-import raf from '~utils/raf';
+import raf from '~utils/listeners/raf';
 import Cube from '~webgl-ogl/components/cube';
 import Stars from '~webgl-ogl/components/stars';
 
@@ -49,11 +49,11 @@ export default class Webgl {
     raf.add(this.update);
 
     // TODO 2024-01-07 jeremboo: Put this somewhere else
-    if (DEBUG_MODE) {
-      import(`../editor/index.ts`).then(({ bindWebgl }) => {
-        bindWebgl(this);
-      });
-    }
+    // if (DEBUG_MODE) {
+    //   import(`../editor/index.ts`).then((editor) => {
+    //     editor.default.addWebgl(this);
+    //   });
+    // }
   }
 
   resize(width: number, height: number) {

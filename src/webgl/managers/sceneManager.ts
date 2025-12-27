@@ -1,17 +1,18 @@
-import type BaseScene from "../scenes/BaseScene";
-import type { WebGLRenderer } from "three";
+import type { WebGLRenderer } from 'three';
 
-export enum Scenes {
-  Main = 'MainScene'
-}
+import { Scenes } from '~types/enum';
 
-const SCENES: { [key in Scenes]: { props: {}}} = {
+import type BaseScene from '../scenes/BaseScene';
+
+export type SceneList = { [key in Scenes]?: BaseScene };
+
+const SCENES: { [key in Scenes]: { props: {} } } = {
   [Scenes.Main]: { props: {} }
-}
+};
 
 export default class SceneManager {
-  private readonly renderer: WebGLRenderer
-  private scenes: { [key in Scenes]?: BaseScene } = {}
+  private readonly renderer: WebGLRenderer;
+  private scenes: SceneList = {};
 
   currentScene?: BaseScene;
 
@@ -24,22 +25,20 @@ export default class SceneManager {
     if (scene === undefined) {
       const { props } = SCENES[sceneId];
       // https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
-      const cls = (await import(`../scenes/${sceneId}/index.ts`))?.default;
-      if (cls === undefined) {
+      const Cls = (await import(`../scenes/${sceneId}/index.ts`))?.default;
+      if (Cls === undefined) {
         throw new Error(`Scene ${sceneId} not found`);
       }
-      scene = new cls(props);
+      scene = new Cls(this.renderer, props);
     }
-    await scene?.init(this.renderer);
+    await scene?.init();
+    this.scenes[sceneId] = scene;
     return scene;
   }
 
   async setScene(sceneId: Scenes) {
-    const results = await Promise.all([
-      this.currentScene?.animateOut(),
-      this.loadScene(sceneId)
-    ]);
-    this.currentScene = results[1];
+    const [none, loadedScene] = await Promise.all([this.currentScene?.animateOut(), this.loadScene(sceneId)]);
+    this.currentScene = loadedScene;
     this.currentScene?.animateIn();
   }
 
@@ -50,6 +49,20 @@ export default class SceneManager {
   update(delta: number) {
     if (!this.currentScene) return;
     this.currentScene.update(delta);
-    this.renderer.render(this.currentScene.scene, this.currentScene.camera);
+    this.renderer.render(this.currentScene.scene, this.currentScene.camera.camera);
+  }
+
+  /*
+   * * *******************
+   * * EDITOR
+   * * *******************
+   */
+
+  editorGetRenderer() {
+    return this.renderer;
+  }
+
+  editorGetScenes() {
+    return this.scenes;
   }
 }

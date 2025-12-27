@@ -1,13 +1,14 @@
-import { DEBUG_MODE } from '~data/index.ts';
+import { DEBUG_MODE } from '~data/index';
+import { Scenes } from '~types/enum';
+import raf from '~utils/listeners/raf';
 
-import raf from '~utils/raf';
-import Renderer from './renderer.ts';
-import SceneManager, { Scenes } from './managers/sceneManager.ts';
-import initLoaders from './utils/loaders/initLoaders.ts';
+import SceneManager from './managers/sceneManager';
+import Renderer from './renderer';
+import initLoaders from './utils/loaders/initLoaders';
 
 export default class Webgl {
   private readonly renderer: Renderer;
-  private readonly sceneManager: SceneManager
+  private readonly sceneManager: SceneManager;
 
   private _isLoaded = false;
   private isStarted = false;
@@ -15,13 +16,6 @@ export default class Webgl {
   constructor(canvas: HTMLCanvasElement) {
     this.renderer = new Renderer(canvas);
     this.sceneManager = new SceneManager(this.renderer);
-
-    // TODO 2024-01-07 jeremboo: Put this somewhere else
-    // if (DEBUG_MODE) {
-    //   import(`../editor/index.ts`).then(({ bindWebgl }) => {
-    //     bindWebgl(this);
-    //   });
-    // }
   }
 
   async load() {
@@ -32,6 +26,11 @@ export default class Webgl {
     await initLoaders(this.renderer);
     await this.setScene(Scenes.Main);
     this._isLoaded = true;
+
+    if (DEBUG_MODE) {
+      const editor = (await import(`../editor/index.ts`)).default;
+      editor.addWebgl(this);
+    }
   }
 
   public async setScene(sceneId: Scenes) {
@@ -72,5 +71,15 @@ export default class Webgl {
       this.pause();
     }
     // TODO 2023-11-17 jeremboo:
+  }
+
+  /*
+   * * *******************
+   * * EDITOR
+   * * *******************
+   */
+
+  editorGetSceneManager() {
+    return this.sceneManager;
   }
 }

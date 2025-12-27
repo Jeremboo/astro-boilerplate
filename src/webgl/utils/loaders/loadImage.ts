@@ -1,4 +1,4 @@
-export default function(src: string, props = {}, onProgress?: () => void): Promise<HTMLImageElement> {
+export default function (src: string, props = {}): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.onload = () => {

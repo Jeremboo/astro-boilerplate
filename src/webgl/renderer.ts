@@ -1,6 +1,9 @@
-import { WebGLRenderer } from 'three';
-import {getQualitySettings, Quality, type QualitySettings} from './utils/graphics';
+import { SRGBColorSpace, WebGLRenderer } from 'three';
+
+import { BACKGROUND_COLOR } from '~data/colors';
 import { DEBUG_MODE } from '~data/index';
+
+import { getQualitySettings, Quality, type QualitySettings } from './utils/graphics';
 
 export default class Renderer extends WebGLRenderer {
   width!: number;
@@ -12,7 +15,7 @@ export default class Renderer extends WebGLRenderer {
   private baseSize: number;
   private maxDiag: number;
 
-  public readonly qualitySettings: QualitySettings
+  public readonly qualitySettings: QualitySettings;
 
   constructor(canvas: HTMLCanvasElement) {
     const qualitySettings = getQualitySettings(Quality.Normal);
@@ -24,6 +27,7 @@ export default class Renderer extends WebGLRenderer {
     });
 
     this.qualitySettings = qualitySettings;
+    this.outputColorSpace = SRGBColorSpace;
 
     // Set to false for prod
     this.debug.checkShaderErrors = DEBUG_MODE;
@@ -32,7 +36,12 @@ export default class Renderer extends WebGLRenderer {
     this.maxDiag = this.baseSize * this.baseSize;
 
     this.setPixelRatio(this.qualitySettings.pixelRatio);
-    this.setClearColor(0xffffff, 0);
+    this.setClearColor(BACKGROUND_COLOR);
+
+    // this.shadowMap.enabled = true;
+    // this.shadowMap.type = VSMShadowMap;
+    // this.shadowMap.type = PCFShadowMap;
+    // this.shadowMap.type = PCFSoftShadowMap;
 
     // The size follow the screen resolution by default
     this.resize();

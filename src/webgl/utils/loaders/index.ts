@@ -1,48 +1,42 @@
-import type { Audio, AudioListener, CompressedTexture, Group, Loader, Texture } from "three";
-import type { GLTF } from "three/examples/jsm/Addons.js";
+import type { Loader } from 'three';
+import { AssetType } from '~types/enum';
 
-export enum LoaderType {
-  audio = 'audio',
-  gltf = 'gltf',
-  image = 'image',
-  ktx2Texture = 'ktx2Texture',
-  texture = 'texture',
-}
-
-export type LoaderToDataMap = {
-  [LoaderType.audio]: Audio;
-  [LoaderType.gltf]: GLTF;
-  [LoaderType.image]: HTMLImageElement;
-  [LoaderType.ktx2Texture]: CompressedTexture;
-  [LoaderType.texture]: Texture;
-}
-
-export type LoaderAudioArgs = { audioListener: AudioListener };
+export type LoaderAudioArgs = { loop?: boolean };
+export type LoaderVideoArgs = { width?: number; height?: number; loop?: boolean; muted?: boolean };
 export type LoaderTextureArgs = { imageOrientation?: 'flipY' } | undefined;
 export type LoaderToArgsMap = {
-  [LoaderType.audio]: LoaderAudioArgs;
-  [LoaderType.gltf]: undefined;
-  [LoaderType.image]: undefined;
-  [LoaderType.ktx2Texture]: undefined;
-  [LoaderType.texture]: LoaderTextureArgs;
-}
+  [AssetType.audio]: LoaderAudioArgs;
+  [AssetType.audioPositional]: LoaderAudioArgs;
+  [AssetType.video]: LoaderVideoArgs;
+  [AssetType.gltf]: undefined;
+  [AssetType.image]: undefined;
+  [AssetType.ktx2Texture]: undefined;
+  [AssetType.texture]: LoaderTextureArgs;
+};
 
 export const LoaderMap = {
-  [LoaderType.audio]: async () => (await import('./loadAudio')).default,
-  [LoaderType.gltf]: async () => (await import('./loadGLTF')).default,
-  [LoaderType.image]: async () => (await import('./loadImage')).default,
-  [LoaderType.ktx2Texture]: async () => (await import('./loadKTX2Texture')).default,
-  [LoaderType.texture]: async () => (await import('./loadTexture')).default,
-}
+  [AssetType.audio]: async () => (await import('./loadAudio')).default,
+  [AssetType.audioPositional]: async () => (await import('./loadAudioPositional')).default,
+  [AssetType.video]: async () => (await import('./loadVideoTexture')).default,
+  [AssetType.gltf]: async () => (await import('./loadGLTF')).default,
+  [AssetType.image]: async () => (await import('./loadImage')).default,
+  [AssetType.ktx2Texture]: async () => (await import('./loadKTX2Texture')).default,
+  [AssetType.texture]: async () => (await import('./loadTexture')).default
+};
 
-export async function load<T>(loader: Loader, src: string, onProgress?: () => void): Promise<T> {
+export async function load<T>(loader: Loader, src: string): Promise<T> {
   return new Promise((resolve, reject) => {
     loader.load(
       src,
       (data) => {
         resolve(data as T);
       },
-      onProgress,
+      (xhr: ProgressEvent) => {
+        if (xhr.lengthComputable) {
+          const percentComplete = (xhr.loaded / xhr.total) * 100;
+          console.log(`${src} progress: ${percentComplete}%`);
+        }
+      },
       (error) => {
         reject(error);
       }

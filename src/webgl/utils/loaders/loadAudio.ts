@@ -1,13 +1,11 @@
-import { Audio, AudioLoader } from 'three';
-import { load, type LoaderAudioArgs} from '.';
+import { Audio } from 'three';
 
-const audioLoader = new AudioLoader();
+import audioManager from '~webgl/managers/audioManager';
 
-export default async function loadAudio(src: string, { audioListener } = {} as LoaderAudioArgs, onProgress?: () => void): Promise<Audio> {
-  const audio = new Audio(audioListener);
-  return await load<AudioBuffer>(audioLoader, src, onProgress).then((buffer) => {
-    audio.setBuffer(buffer);
-    audio.setVolume(1);
-    return audio;
-  });
+import type { LoaderAudioArgs } from '.';
+import loadAudioBuffer from './loadAudioBuffer';
+
+export default async function loadAudioPositional(src: string, props: LoaderAudioArgs): Promise<Audio> {
+  const audio = new Audio(audioManager.listener);
+  return loadAudioBuffer(src, audio, props);
 }

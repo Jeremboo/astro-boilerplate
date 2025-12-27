@@ -1,11 +1,12 @@
-import { Scene, WebGLRenderer } from 'three';
+import type { WebGLRenderer } from 'three';
+import { Scene } from 'three';
 
-import Camera from '../components/Camera';
-
+import type { Scenes } from '~types/enum';
 import type { AssetProps } from '~webgl/managers/assetManager';
-import type { Scenes } from '~webgl/managers/sceneManager';
 import assetManager from '~webgl/managers/assetManager';
 import preloadGpu from '~webgl/utils/preloadGPU';
+
+import Camera from '../components/Camera';
 
 interface BaseSceneProps {
   id: Scenes;
@@ -15,17 +16,20 @@ interface BaseSceneProps {
 export default class BaseScene {
   readonly id: Scenes;
   readonly assets: AssetProps[] = [];
+  readonly renderer: WebGLRenderer;
 
   readonly camera: Camera;
   readonly scene = new Scene();
 
   protected isInit = false;
 
-  constructor({ id, assets }: BaseSceneProps) {
+  constructor(renderer: WebGLRenderer, { id, assets }: BaseSceneProps) {
     this.id = id;
     this.assets = assets ?? [];
+    this.renderer = renderer;
 
     this.camera = new Camera();
+    this.scene.add(this.camera);
   }
 
   /**
@@ -34,19 +38,16 @@ export default class BaseScene {
    * * *******************
    */
 
-  async init(renderer: WebGLRenderer, onProgress?: () => void) {
+  async init() {
     if (this.isInit) return;
     this.isInit = true;
-    await this.load(onProgress);
+    await this.load();
     await this.onAfterAssetLoad();
-    preloadGpu(renderer, this.scene, this.camera);
+    preloadGpu(this.renderer, this.scene, this.camera.camera);
   }
 
-  private async load(onProgress?: () => void) {
-    if (assetManager.assets[this.id] !== undefined && !this.assets.length) {
-      return;
-    }
-    return await assetManager.load(this.assets, this.id, onProgress);
+  private async load() {
+    return assetManager.load(...this.assets);
   }
 
   async onAfterAssetLoad() {}
